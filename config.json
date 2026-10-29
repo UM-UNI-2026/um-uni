@@ -10,8 +10,19 @@
     "simplificacion": "Simplificacion",
     "organizacion": "Organizacion",
     "innovacion": "Innovacion",
-    "servicios": "ServiciosDigitales"
+    "servicios": "ServiciosDigitales",
+    "documentos": "Documentos",
+    "retos": "Retos",
+    "casos": "Casos",
+    "novedades": "Novedades"
   },
+  "contacto": {
+    "correo": "",
+    "anexo": "",
+    "ubicacion": "",
+    "horario": ""
+  },
+  "asistencia": "",
   "nav": {
     "inicio": "",
     "normativa": "",

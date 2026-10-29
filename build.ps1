@@ -84,9 +84,17 @@ if (-not $cfg.orgImage -and (Test-Path $orgSrc)) {
   Save-Jpeg $d "$out\img\organigrama.jpg" 80; $d.Dispose()
   Set-Prop $cfg 'orgImage' 'img/organigrama.jpg'
 }
+# Mapa de procesos (imagen de referencia, copiada a docs\img)
+$mapaSrc = "$root\documentos_referencia\Mapa de procesos UNI Octubre 2026.png"
+if (Test-Path $mapaSrc) {
+  $bm = New-Object System.Drawing.Bitmap $mapaSrc
+  Save-Jpeg $bm "$out\img\mapa-procesos.jpg" 88; $bm.Dispose()
+}
+# Datos del ROF y del organigrama: se usan en todas las páginas (Inicio muestra los arts. 33 y 34)
 $orgJson = '{"units":' + (Get-Content "$root\src\data\organizacion_unidades.json" -Raw -Encoding UTF8) + ',"arts":' + (Get-Content "$root\src\data\rof_articulos.json" -Raw -Encoding UTF8) + '}'
-$orgCss  = Get-Content "$root\src\org.css" -Raw -Encoding UTF8
-$orgJs   = Get-Content "$root\src\org.js"  -Raw -Encoding UTF8
+# Estilos y lógica de los módulos (presentación, pestañas y contenido de cada menú)
+$modCss  = Get-Content "$root\src\modulos.css" -Raw -Encoding UTF8
+$modJs   = Get-Content "$root\src\modulos.js"  -Raw -Encoding UTF8
 
 # Menú: enlaces relativos entre páginas (si config.json no define otra URL)
 $pages = 'inicio','normativa','procesos','simplificacion','organizacion','innovacion','servicios-digitales'
@@ -102,11 +110,7 @@ foreach ($p in $pages) {
   if ($secPath.ContainsKey($p)) { $pc.heroImage = $secPath[$p] }
   $json = $pc | ConvertTo-Json -Depth 6 -Compress
   $html = $tpl.Replace('/*__CONFIG__*/', $json).Replace('__PAGE__', $p)
-  if ($p -eq 'organizacion') {
-    $html = $html.Replace('/*__ORGCSS__*/', $orgCss).Replace('/*__ORGJS__*/', $orgJs).Replace('/*__ORG__*/null', $orgJson)
-  } else {
-    $html = $html.Replace('/*__ORGCSS__*/', '').Replace('/*__ORGJS__*/', '')
-  }
+  $html = $html.Replace('/*__MODCSS__*/', $modCss).Replace('/*__MODJS__*/', $modJs).Replace('/*__ORG__*/null', $orgJson)
   [IO.File]::WriteAllText("$out\$p.html", $html, $utf8)
   if ($p -eq 'inicio') { [IO.File]::WriteAllText("$out\index.html", $html, $utf8) }
   Write-Host ("docs\{0}.html  {1:N0} KB" -f $p, ($html.Length / 1KB))
