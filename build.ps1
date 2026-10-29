@@ -77,10 +77,10 @@ $secPath = @{}
 foreach ($k in $secImg.Keys) { $h = Make-Hero $secImg[$k] "hero-$k.jpg"; if ($h) { $secPath[$k] = $h } }
 
 # Organigrama (imagen + datos de la página Organización)
-$orgSrc = "$root\documentos_referencia\Organigrama_UNI_hor.jpg"
+$orgSrc = "$root\documentos_referencia\organigrama_v1.jpg"
 if (-not $cfg.orgImage -and (Test-Path $orgSrc)) {
   $bm = New-Object System.Drawing.Bitmap $orgSrc
-  $d = Resize-Bmp $bm 3400; $bm.Dispose()
+  $d = Resize-Bmp $bm 1600; $bm.Dispose()
   Save-Jpeg $d "$out\img\organigrama.jpg" 80; $d.Dispose()
   Set-Prop $cfg 'orgImage' 'img/organigrama.jpg'
 }

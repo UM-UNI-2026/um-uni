@@ -1,5 +1,5 @@
 /* ===== Página Organización ===== */
-const ORG_W = 1889, ORG_H = 2000;   // dimensiones de referencia de las zonas clicables
+const ORG_W = 1397, ORG_H = 2000;   // dimensiones de referencia de las zonas clicables (organigrama_v1.jpg)
 const GRP = {
   alta:     {t:'Alta dirección',        c:'#6b1414'},
   especial: {t:'Órganos especiales y de control', c:'#5a5d63'},
