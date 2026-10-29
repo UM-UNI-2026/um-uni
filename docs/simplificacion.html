@@ -400,6 +400,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 const pageKey = k => k === 'servicios' ? 'servicios-digitales' : k;
+const navUrl = k => (CFG.nav||{})[pageKey(k)] || pageKey(k)+'.html';
 const svgIcon = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
 
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',3200)}
@@ -518,14 +519,13 @@ async function renderHome(){
         <span class="go">›</span>
       </div>`;
   const QUICK = [
-    {k:'normativa',     t:'Consultar normativa',          c:'#a3202a', ic:I.doc},
-    {k:'procesos',      t:'Ver mapa de procesos',         c:'#1f5fbf', ic:I.map},
-    {k:'organizacion',  t:'Consultar organización',       c:'#2e8b4a', ic:I.org},
-    {k:'simplificacion',t:'Ver procedimientos (TUPA)',    c:'#e0572a', ic:I.check},
-    {k:'innovacion',    t:'Ver iniciativas de innovación',c:'#6a3fc4', ic:I.bulb},
-    {k:'servicios',     t:'Servicios digitales',          c:'#0e5f8a', ic:I.globe},
-    {href:()=>CFG.asistencia||'#contacto', t:'Solicitar asistencia técnica', c:'#8a1c24', ic:I.gear},
-    {href:()=>'#contacto', t:'Contacto', c:'#14233f', ic:I.cap}
+    {href:()=>'https://cdnuni.uni.edu.pe/dn/', t:'Consultar normativa', c:'#a3202a', ic:I.doc},
+    {href:()=>navUrl('procesos')+'#mapa', t:'Ver mapa de procesos', c:'#1f5fbf', ic:I.map},
+    {href:()=>navUrl('organizacion')+'#organigrama', t:'Consultar organización', c:'#2e8b4a', ic:I.org},
+    {href:()=>navUrl('simplificacion')+'#tupa', t:'Ver procedimientos (TUPA)', c:'#e0572a', ic:I.check},
+    {href:()=>navUrl('innovacion'), t:'Ver iniciativas de innovación', c:'#6a3fc4', ic:I.bulb},
+    {href:()=>navUrl('servicios'), t:'Servicios digitales', c:'#0e5f8a', ic:I.globe},
+    {href:()=>CFG.asistencia||navUrl('servicios')+'#asistencia', t:'Solicitar asistencia técnica', c:'#8a1c24', ic:I.gear}
   ];
   $('#inner').innerHTML = `
     <p class="caption">Servicios digitales es el resultado visible de los cinco ejes: Normativa, Procesos, Simplificación, Organización e Innovación.</p>
@@ -536,10 +536,7 @@ async function renderHome(){
     <div class="sec-h"><h2>Novedades</h2><span class="ln"></span></div>
     <div id="novedades"></div>
     <div class="sec-h"><h2>Accesos rápidos</h2><span class="ln"></span></div>
-    <div class="quick">${QUICK.map(q=>q.k
-      ? `<a class="q" href="#" data-go="${q.k}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`
-      : `<a class="q" href="${esc(q.href())}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`).join('')}</div>
-    ${commonFooter()}`;
+    <div class="quick">${QUICK.map(q=>`<a class="q" href="${esc(q.href())}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`).join('')}</div>`;
   const all=$('#allProj');
   if(all) all.onclick=e=>{ e.preventDefault(); const more=!all.dataset.m; all.dataset.m=more?'1':''; $('#projList').innerHTML=(more?proj:proj.slice(0,4)).map(projCard).join(''); all.textContent=more?'Ver menos proyectos ←':'Ver todos los proyectos →'; };
   renderNovedades();
@@ -679,7 +676,7 @@ const VI = {
 const HOME = {
   equipo:'UNI',
   titular:'Una universidad que se moderniza para servir mejor',
-  desc:'La Unidad de Modernización de la UNI impulsa que la universidad funcione con procesos claros, trámites simples, una estructura ordenada, normas actualizadas e innovación al servicio de estudiantes, docentes y trabajadores.'
+  desc:'La Unidad de Modernización impulsa que la UNI funcione con procesos claros, trámites simples, una estructura ordenada, normas actualizadas e innovación al servicio de estudiantes, docentes y trabajadores. Trabajamos en cinco ejes —normativa, procesos, simplificación, organización e innovación— y sus resultados se reflejan en los servicios digitales que la comunidad usa cada día.'
 };
 
 const GLOSARIO = [
@@ -751,15 +748,8 @@ function commonFooter(){
 }
 const rofArt = n => (ORG && ORG.arts || []).find(a=>a.n===n) || null;
 function quienesHTML(){
-  const a33 = rofArt(33), a34 = rofArt(34);
-  const eq = ['normativa','procesos','simplificacion','organizacion','innovacion'].map(k=>
-    `<li><b>${esc(MODULOS[k].equipo)}</b> (${esc(SECTIONS.find(s=>s.k===k).t)})</li>`).join('');
-  return `<div class="panel prose">
-    ${a33 ? `<p>${esc(a33.b[0])}</p>` : '<p>Consulta el ROF en la página de Organización.</p>'}
-    ${a34 ? `<details><summary>Funciones de la Unidad de Modernización (artículo 34.º del ROF)</summary><ol>${a34.b.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></details>` : ''}
-    <h3>Equipos de la Unidad</h3><ul>${eq}</ul>
-    <p><a class="btn" href="#contacto">Cómo contactarnos →</a></p>
-  </div>`;
+  const a33 = rofArt(33);
+  return `<div class="panel prose"><p>${esc(a33 ? a33.b[0] : 'La Unidad de Modernización impulsa la modernización institucional de la UNI.')}</p></div>`;
 }
 
 /* ===== Tablas desde Google Sheets ===== */
@@ -1082,7 +1072,7 @@ const DISENO_HTML = `<div class="panel prose"><div class="vh"><h2>Diseño organi
   <h3>Criterios de diseño</h3>
   <ul><li>Cada función tiene un solo responsable.</li><li>Se evitan duplicidades y vacíos de funciones.</li><li>La estructura responde a los objetivos institucionales.</li></ul>
   <h3>Matriz de funciones por unidad</h3>
-  <p>Relaciona cada unidad con las funciones que le corresponden según el ROF. Está en preparación.</p>
+  <p>Relaciona cada unidad con las funciones que le corresponden. Está en preparación.</p>
 </div>`;
 
 function guessResp(u){
@@ -1284,13 +1274,13 @@ const MODULOS = {
   normativa: {
     equipo:'Documentos normativos',
     titular:'Reglas claras para decidir con seguridad.',
-    desc:'Ordenamos, elaboramos y actualizamos los documentos normativos de la UNI (directivas, reglamentos, lineamientos y manuales) para que cada unidad sepa qué norma aplica, quién la aprobó y si está vigente.',
+    desc:'La Unidad de Modernización ordena, elabora y actualiza los documentos normativos de la UNI: directivas, reglamentos, lineamientos y manuales. Nuestro propósito es que cada unidad sepa qué norma aplica, quién la aprobó, si está vigente y qué pasos seguir para proponer una nueva. Aquí encontrarás el repositorio normativo, las normas externas que rigen a la Universidad, la guía para elaborar documentos y el seguimiento de los que están en elaboración.',
     tiles: c => TILES(c, c.ext('normativa_elaboracion'), 'documentos en elaboración'),
     buttons: [{t:'Consultar normativa', v:'repositorio', primary:true}, {t:'Solicitar una directiva', v:'solicitud'}],
     views: c => [
       {id:'repositorio', label:'Repositorio normativo', icon:VI.table, run:el=>tableView(el,'normativa',{title:'Repositorio normativo', intro:'Busca por número, tema o estado, y filtra por tipo y año. Cada documento enlaza a su PDF cuando está publicado.', ph:'Buscar norma, número o tema…'})},
       {id:'externas', label:'Normas externas', icon:VI.info, run:el=>{el.innerHTML=NORMAS_EXT_HTML}},
-      {id:'internas', label:'Normas internas UNI', icon:VI.layers, run:el=>tableView(el,'normativa',{title:'Normas internas UNI', intro:'Estatuto, ROF, reglamentos y directivas de la UNI.', ph:'Buscar…', filter:o=>!/^(ley|decreto)/.test(norm(o.tipo||''))})},
+      {id:'internas', label:'Normas internas UNI', icon:VI.layers, run:el=>tableView(el,'normativa',{title:'Normas internas UNI', intro:'Estatuto, reglamentos y directivas de la UNI.', ph:'Buscar…', filter:o=>!/^(ley|decreto)/.test(norm(o.tipo||''))})},
       {id:'elaboracion', label:'Elaboración de documentos', icon:VI.steps, run:el=>{el.innerHTML=ELAB_HTML}},
       {id:'en-elaboracion', label:'En elaboración', icon:VI.flow, run:el=>tableView(el,'normativa',{title:'Documentos en elaboración', intro:'Documentos en curso, con su etapa actual.', ph:'Buscar…', filter:o=>/elabor|revis/.test(norm(o.estado||'')), empty:'No hay documentos en elaboración registrados en el Google Sheets.'})},
       {id:'faq', label:'Preguntas frecuentes', icon:VI.help, run:el=>{el.innerHTML=FAQ_NORM_HTML}},
@@ -1303,7 +1293,7 @@ const MODULOS = {
   procesos: {
     equipo:'Gestión por procesos',
     titular:'Si lo entendemos, lo podemos mejorar.',
-    desc:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso, para que cada actividad tenga responsable, flujo, tiempos e indicadores, y la Universidad trabaje de forma coordinada.',
+    desc:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso. Cada proceso debe tener un responsable, un flujo claro, tiempos definidos e indicadores que permitan medirlo, para que las unidades trabajen de forma coordinada y los servicios a estudiantes y docentes sean más predecibles. Aquí puedes explorar el mapa de procesos, revisar la ficha de cada proceso y consultar la metodología que seguimos.',
     tiles: c => TILES(c, c.ext('procesos_manuales'), 'manuales aprobados'),
     buttons: [{t:'Ver mapa de procesos', v:'mapa', primary:true}, {t:'Solicitar asistencia en procesos', v:'asistencia'}],
     views: c => [
@@ -1323,7 +1313,7 @@ const MODULOS = {
   simplificacion: {
     equipo:'Simplificación administrativa',
     titular:'Menos pasos, menos papeles, más resultados.',
-    desc:'Revisamos los procedimientos y servicios de la UNI para eliminar requisitos innecesarios, reducir plazos y costos, y digitalizar lo que se pueda, de modo que estudiantes, egresados y trabajadores resuelvan sus trámites con rapidez y sin vueltas.',
+    desc:'Revisamos los procedimientos y servicios de la UNI para eliminar requisitos innecesarios, reducir plazos y costos, y digitalizar lo que se pueda. Así, estudiantes, egresados y trabajadores resuelven sus trámites con rapidez y sin vueltas. Aquí encontrarás el TUPA, el estado de revisión de cada procedimiento, ejemplos de antes y después, nuestra metodología y un buzón para proponer mejoras.',
     tiles: c => TILES(c, c.ext('simplificacion_pasos'), 'pasos o requisitos eliminados'),
     buttons: [{t:'Ver procedimientos (TUPA)', v:'tupa', primary:true}, {t:'Proponer una simplificación', v:'buzon'}],
     views: c => [
@@ -1343,13 +1333,13 @@ const MODULOS = {
   organizacion: {
     equipo:'Diseño organizacional',
     titular:'Una estructura pensada para cumplir la misión.',
-    desc:'Diseñamos y actualizamos la estructura de la UNI (organigrama, ROF, órganos, unidades y puestos) para que cada función tenga un responsable claro, sin duplicidades ni vacíos, en cumplimiento de los lineamientos de organización del Estado.',
+    desc:'Diseñamos y actualizamos la estructura de la UNI: organigrama, órganos, unidades, funciones y puestos. Buscamos que cada función tenga un responsable claro, sin duplicidades ni vacíos, y que la estructura responda a los objetivos de la Universidad y a los lineamientos de organización del Estado. Aquí puedes consultar el organigrama, el directorio de órganos y unidades, la ruta de diseño organizacional y los cargos y documentos relacionados.',
     tiles: c => TILES(c, ORG && ORG.arts ? ORG.arts.length : '—', 'artículos del ROF'),
     buttons: [{t:'Ver organigrama', v:'organigrama', primary:true}, {t:'Solicitar asistencia en diseño organizacional', v:'asistencia'}],
     start: c => {
       const h = (location.hash||'').slice(1);
       if(h && orgX().byId[h]){ ORG_ST.sel = h; ORG_ST.tab = 'general'; c.go('organigrama'); }
-      else c.go('presentacion');
+      else c.defaultStart();
     },
     views: c => [
       {id:'organigrama', label:'Organigrama', icon:VI.org, run:el=>orgChart(el,c)},
@@ -1357,7 +1347,7 @@ const MODULOS = {
       {id:'rof', label:'ROF', icon:VI.book, run:el=>orgRof(el)},
       {id:'diseno', label:'Diseño organizacional', icon:VI.design, run:el=>{el.innerHTML=DISENO_HTML}},
       {id:'cargos', label:'Cargos y puestos', icon:VI.people, run:el=>tableView(el,'organizacion',{title:'Cargos y puestos', intro:'Clasificador de cargos (MCC), perfiles de puesto por unidad y cuadro de puestos. La tabla muestra el estado de alineación de cada unidad.', ph:'Buscar unidad u observación…'})},
-      {id:'docs', label:'Documentos relacionados', icon:VI.docs, run:el=>tableView(el,'documentos',{title:'Documentos relacionados', intro:'Estatuto, ROF, CAP/MCC, informes de alineamiento y formatos.', ph:'Buscar documento…', empty:'Aún no hay documentos relacionados. Agrégalos en la pestaña «'+CFG.tabs.documentos+'» del Google Sheets.'})},
+      {id:'docs', label:'Documentos relacionados', icon:VI.docs, run:el=>tableView(el,'documentos',{title:'Documentos relacionados', intro:'Estatuto, CAP/MCC, informes de alineamiento y formatos.', ph:'Buscar documento…', empty:'Aún no hay documentos relacionados. Agrégalos en la pestaña «'+CFG.tabs.documentos+'» del Google Sheets.'})},
       {id:'asistencia', label:'Asistencia', menu:false, run:el=>formView(el, formDef('Solicitar asistencia en diseño organizacional','Solicitud de asistencia en diseño organizacional','Describe la unidad, función o estructura sobre la que necesitas orientación.',[
         {n:'detalle', l:'Describe la necesidad', area:1, req:1}]))}
     ]
@@ -1366,7 +1356,7 @@ const MODULOS = {
   innovacion: {
     equipo:'Innovación pública',
     titular:'Las mejores ideas nacen de quienes viven el problema.',
-    desc:'Impulsamos la innovación en la UNI siguiendo la NT 003-2025-PCM-SGP: escuchamos a estudiantes, docentes y trabajadores, definimos retos, probamos soluciones en piloto y escalamos las que mejoran los servicios de la Universidad.',
+    desc:'Impulsamos la innovación en la UNI siguiendo la NT 003-2025-PCM-SGP: escuchamos a estudiantes, docentes y trabajadores, definimos retos, probamos soluciones en piloto y escalamos las que mejoran los servicios de la Universidad. Cada idea avanza por cuatro fases: descubrir, definir, idear y entregar. Aquí puedes revisar el portafolio de iniciativas, los retos abiertos y el laboratorio de innovación, o proponer tu propia idea.',
     tiles: c => TILES(c, c.ext('innovacion_pilotos'), 'pilotos validados'),
     buttons: [{t:'Ver iniciativas', v:'portafolio', primary:true}, {t:'Proponer una idea o reto', v:'proponer'}],
     views: c => [
@@ -1387,7 +1377,7 @@ const MODULOS = {
   servicios: {
     equipo:'Servicios digitales',
     titular:'Trámites de la UNI, desde donde estés.',
-    desc:'Servicios simplificados y digitalizados que la comunidad UNI puede usar en línea, con verificación de autenticidad.',
+    desc:'Reunimos los servicios simplificados y digitalizados que la comunidad UNI puede usar en línea, con verificación de autenticidad de los documentos. Aquí puedes ver qué servicios están disponibles, cuáles están en desarrollo y cómo usarlos. Si tienes dificultades, el soporte técnico te orienta.',
     tiles: c => TILES(c, c.ext('servicios_en_desarrollo'), 'servicios en desarrollo'),
     buttons: [{t:'Ver catálogo', v:'catalogo', primary:true}, {t:'Solicitar asistencia técnica', v:'asistencia'}],
     views: c => [
@@ -1435,7 +1425,9 @@ async function renderModule(key){
     if(b){ e.preventDefault(); c.go(b.dataset.v); }
   };
   animateRings();
-  if(M.start) M.start(c); else c.go('presentacion');
+  /* Un enlace con #vista (por ejemplo procesos.html#mapa) abre directamente esa pestaña */
+  c.defaultStart = () => { const h=(location.hash||'').slice(1); c.go(views.some(v=>v.id===h) ? h : 'presentacion'); };
+  if(M.start) M.start(c); else c.defaultStart();
 }
 
 

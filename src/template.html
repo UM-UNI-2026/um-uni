@@ -231,6 +231,7 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 const pageKey = k => k === 'servicios' ? 'servicios-digitales' : k;
+const navUrl = k => (CFG.nav||{})[pageKey(k)] || pageKey(k)+'.html';
 const svgIcon = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
 
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',3200)}
@@ -349,14 +350,13 @@ async function renderHome(){
         <span class="go">›</span>
       </div>`;
   const QUICK = [
-    {k:'normativa',     t:'Consultar normativa',          c:'#a3202a', ic:I.doc},
-    {k:'procesos',      t:'Ver mapa de procesos',         c:'#1f5fbf', ic:I.map},
-    {k:'organizacion',  t:'Consultar organización',       c:'#2e8b4a', ic:I.org},
-    {k:'simplificacion',t:'Ver procedimientos (TUPA)',    c:'#e0572a', ic:I.check},
-    {k:'innovacion',    t:'Ver iniciativas de innovación',c:'#6a3fc4', ic:I.bulb},
-    {k:'servicios',     t:'Servicios digitales',          c:'#0e5f8a', ic:I.globe},
-    {href:()=>CFG.asistencia||'#contacto', t:'Solicitar asistencia técnica', c:'#8a1c24', ic:I.gear},
-    {href:()=>'#contacto', t:'Contacto', c:'#14233f', ic:I.cap}
+    {href:()=>'https://cdnuni.uni.edu.pe/dn/', t:'Consultar normativa', c:'#a3202a', ic:I.doc},
+    {href:()=>navUrl('procesos')+'#mapa', t:'Ver mapa de procesos', c:'#1f5fbf', ic:I.map},
+    {href:()=>navUrl('organizacion')+'#organigrama', t:'Consultar organización', c:'#2e8b4a', ic:I.org},
+    {href:()=>navUrl('simplificacion')+'#tupa', t:'Ver procedimientos (TUPA)', c:'#e0572a', ic:I.check},
+    {href:()=>navUrl('innovacion'), t:'Ver iniciativas de innovación', c:'#6a3fc4', ic:I.bulb},
+    {href:()=>navUrl('servicios'), t:'Servicios digitales', c:'#0e5f8a', ic:I.globe},
+    {href:()=>CFG.asistencia||navUrl('servicios')+'#asistencia', t:'Solicitar asistencia técnica', c:'#8a1c24', ic:I.gear}
   ];
   $('#inner').innerHTML = `
     <p class="caption">Servicios digitales es el resultado visible de los cinco ejes: Normativa, Procesos, Simplificación, Organización e Innovación.</p>
@@ -367,10 +367,7 @@ async function renderHome(){
     <div class="sec-h"><h2>Novedades</h2><span class="ln"></span></div>
     <div id="novedades"></div>
     <div class="sec-h"><h2>Accesos rápidos</h2><span class="ln"></span></div>
-    <div class="quick">${QUICK.map(q=>q.k
-      ? `<a class="q" href="#" data-go="${q.k}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`
-      : `<a class="q" href="${esc(q.href())}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`).join('')}</div>
-    ${commonFooter()}`;
+    <div class="quick">${QUICK.map(q=>`<a class="q" href="${esc(q.href())}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`).join('')}</div>`;
   const all=$('#allProj');
   if(all) all.onclick=e=>{ e.preventDefault(); const more=!all.dataset.m; all.dataset.m=more?'1':''; $('#projList').innerHTML=(more?proj:proj.slice(0,4)).map(projCard).join(''); all.textContent=more?'Ver menos proyectos ←':'Ver todos los proyectos →'; };
   renderNovedades();
