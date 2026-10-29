@@ -38,7 +38,14 @@ async function renderOrg(){
   /* KPI: valores de la pestaña Resumen (org_*) o calculados del organigrama */
   const res = await loadResumen();
   const dOrg = res.find(r=>norm(r.clave)==='organizacion') || {porcentaje:0,cifra:'–',descripcion:'Sin datos'};
-  $('#cards').innerHTML = `<div class="single">${cardHTML(SEC,dOrg).replace('href="#" data-go="organizacion"','')}</div>`;
+  /* Avance (%) dentro del submenú, debajo de "Documentos relacionados" */
+  const pct = Math.max(0,Math.min(100,Number(dOrg.porcentaje)||0));
+  const R=30, C=2*Math.PI*R;
+  const prog = `<div class="sprog" style="--c:${SEC.c}">
+      <div class="ring"><svg viewBox="0 0 74 74"><circle class="bg" cx="37" cy="37" r="${R}"/><circle class="fg" cx="37" cy="37" r="${R}" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-off="${C*(1-pct/100)}"/></svg><b>${pct}%</b></div>
+      <div><div class="n">${esc(dOrg.cifra)}</div><div class="d">${esc(dOrg.descripcion)}</div></div>
+    </div>`;
+  $('#cards').style.display = 'none';
   animateRings();
   const rv = k => { const r=res.find(x=>norm(x.clave)===k); return r&&r.cifra!==''?r.cifra:null; };
   const nOrg = U.filter(u=>/^[ÓO]rgano/.test(u.tipo)).length;
@@ -65,6 +72,7 @@ async function renderOrg(){
     <aside class="side">
       <div class="sh">${svgIcon(OI.org)}Organización</div>
       ${views.map(v=>`<button data-v="${v[0]}">${svgIcon(v[2])}${v[1]}</button>`).join('')}
+      ${prog}
     </aside>
     <section>
       <div class="ohead">
