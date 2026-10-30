@@ -16,7 +16,7 @@
     main > :last-child { margin-bottom: 0 !important; }
   }
   ::-webkit-scrollbar { display: none; }
-  .side{width:230px;flex:none;background:#fff;border:1px solid #e3e6ee;border-radius:16px;padding:10px;position:sticky;top:100px;align-self:flex-start;margin:22px 0 40px 16px;max-height:calc(100vh - 120px);overflow-y:auto}
+  .side{width:230px;flex:none;background:#fff;border:1px solid #e3e6ee;border-radius:16px;padding:10px;position:sticky;top:100px;align-self:flex-start;margin:22px 0 40px 0;max-height:calc(100vh - 120px);overflow-y:auto}
   .side .sh{display:flex;align-items:center;gap:10px;background:#8a1c24;color:#fff;border-radius:12px;padding:12px 14px;font-weight:700;font-size:14px;margin-bottom:8px}
   .side .sh svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
   .side a{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;border-radius:10px;font-size:13.5px;color:#2d3750;line-height:1.3}
@@ -186,7 +186,36 @@ tailwind.config = {
   </div>
 </header>
 
-<main class="w-full bg-surface flex-grow pt-20 flex">
+<div class="pt-20">
+<!-- HERO / BANNER -->
+<section class="relative w-full overflow-hidden border-b border-slate-border bg-surface-container-low">
+  <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 relative items-center">
+    <div class="lg:col-span-7 z-10 flex flex-col justify-center px-margin py-space-lg lg:py-space-xl pr-space-lg">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-bold">UNIDAD DE MODERNIZACIÓN · SIMPLIFICACIÓN ADMINISTRATIVA</span>
+        <h1 class="font-display text-[32px] lg:text-[38px] font-extrabold text-primary leading-tight tracking-tight uppercase">SIMPLIFICACIÓN ADMINISTRATIVA</h1>
+        <p class="font-headline-sm text-[18px] lg:text-[20px] font-normal text-on-surface leading-snug mt-0.5">Menos pasos, menos papeles, más resultados.</p>
+      </div>
+      <p class="font-body-md text-secondary leading-relaxed mt-2.5 max-w-xl text-[14px]">Eliminación sistemática de barreras burocráticas, reducción drástica de plazos de atención y optimización integral del Texto Único de Procedimientos Administrativos (TUPA) para toda la comunidad universitaria.</p>
+      <div class="flex flex-wrap items-center gap-space-sm mt-4">
+        <a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-primary hover:bg-crimson-dark text-on-primary font-label-lg text-label-lg transition-all shadow-sm" href="#catalogo-tupa">
+          <span class="material-symbols-outlined text-[18px]">search_check</span>Explorar Catálogo TUPA
+        </a>
+        <a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all bg-surface-container-lowest border border-slate-border" href="#canal-reclamos">
+          <span class="material-symbols-outlined text-[18px] text-primary">flag</span>Reportar Trámite Engorroso
+        </a>
+      </div>
+    </div>
+    <div class="lg:col-span-5 relative w-full h-[280px] lg:h-[320px] overflow-hidden flex items-center justify-center p-2">
+      <div class="w-full h-full relative overflow-hidden rounded-xl border border-slate-border shadow-sm">
+        <img src="img/hero-simplificacion.jpg" alt="Simplificación Administrativa UNI" class="w-full h-full object-cover" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%); mask-image: linear-gradient(to right, transparent 0%, black 35%);">
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<main class="max-w-[1440px] mx-auto w-full bg-surface flex-grow flex px-margin">
 
   <!-- SIDEBAR -->
   <aside class="side hidden lg:block">
@@ -211,35 +240,8 @@ tailwind.config = {
 
   <div class="flex flex-col w-full min-w-0">
 
-    <!-- HERO / BANNER -->
-    <section class="relative w-full overflow-hidden border-b border-slate-border bg-surface-container-low">
-      <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 relative items-center">
-        <div class="lg:col-span-7 z-10 flex flex-col justify-center px-margin py-space-lg lg:py-space-xl pr-space-lg">
-          <div class="flex flex-col gap-1">
-            <span class="font-label-sm text-[11px] uppercase tracking-widest text-primary font-bold">UNIDAD DE MODERNIZACIÓN · SIMPLIFICACIÓN ADMINISTRATIVA</span>
-            <h1 class="font-display text-[32px] lg:text-[38px] font-extrabold text-primary leading-tight tracking-tight uppercase">SIMPLIFICACIÓN ADMINISTRATIVA</h1>
-            <p class="font-headline-sm text-[18px] lg:text-[20px] font-normal text-on-surface leading-snug mt-0.5">Menos pasos, menos papeles, más resultados.</p>
-          </div>
-          <p class="font-body-md text-secondary leading-relaxed mt-2.5 max-w-xl text-[14px]">Eliminación sistemática de barreras burocráticas, reducción drástica de plazos de atención y optimización integral del Texto Único de Procedimientos Administrativos (TUPA) para toda la comunidad universitaria.</p>
-          <div class="flex flex-wrap items-center gap-space-sm mt-4">
-            <a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg bg-primary hover:bg-crimson-dark text-on-primary font-label-lg text-label-lg transition-all shadow-sm" href="#catalogo-tupa">
-              <span class="material-symbols-outlined text-[18px]">search_check</span>Explorar Catálogo TUPA
-            </a>
-            <a class="inline-flex items-center gap-space-xs px-5 py-2.5 rounded-lg hover:bg-surface-container-high text-on-surface font-label-lg text-label-lg transition-all bg-surface-container-lowest border border-slate-border" href="#canal-reclamos">
-              <span class="material-symbols-outlined text-[18px] text-primary">flag</span>Reportar Trámite Engorroso
-            </a>
-          </div>
-        </div>
-        <div class="lg:col-span-5 relative w-full h-[280px] lg:h-[320px] overflow-hidden flex items-center justify-center p-2">
-          <div class="w-full h-full relative overflow-hidden rounded-xl border border-slate-border shadow-sm">
-            <img src="img/hero-simplificacion.jpg" alt="Simplificación Administrativa UNI" class="w-full h-full object-cover" style="-webkit-mask-image: linear-gradient(to right, transparent 0%, black 35%); mask-image: linear-gradient(to right, transparent 0%, black 35%);">
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- MÉTRICAS DE IMPACTO -->
-    <section class="max-w-[1440px] w-full mx-auto px-margin pt-space-2xl mb-space-2xl" id="metricas">
+    <section class="w-full pt-space-2xl mb-space-2xl" id="metricas">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-sm mb-space-lg">
         <div>
           <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Métricas de Modernización</span>
@@ -310,7 +312,7 @@ tailwind.config = {
     </section>
 
     <!-- COMPARATIVA ANTES VS DESPUÉS -->
-    <section class="max-w-[1440px] w-full mx-auto px-margin mb-space-2xl" id="comparativa">
+    <section class="w-full mb-space-2xl" id="comparativa">
       <div class="p-space-xl bg-surface-container-low rounded-2xl">
         <div class="flex flex-col gap-space-xs mb-space-xl">
           <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Transformación Operativa</span>
@@ -406,7 +408,7 @@ tailwind.config = {
     </section>
 
     <!-- CATÁLOGO TUPA -->
-    <section class="max-w-[1440px] w-full mx-auto px-margin mb-space-2xl" id="catalogo-tupa">
+    <section class="w-full mb-space-2xl" id="catalogo-tupa">
       <div class="flex flex-col gap-space-xs mb-space-lg">
         <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary font-semibold">Herramienta de Consulta Ciudadana</span>
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md">
@@ -789,7 +791,7 @@ tailwind.config = {
     </section>
 
     <!-- CANAL DE RECLAMOS Y MESA DE AYUDA -->
-    <section class="max-w-[1440px] w-full mx-auto px-margin mb-space-2xl" id="canal-reclamos">
+    <section class="w-full mb-space-2xl" id="canal-reclamos">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-lg">
 
         <!-- Formulario -->
