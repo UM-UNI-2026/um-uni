@@ -36,8 +36,8 @@ nav a.on{color:var(--red);border-bottom-color:var(--red)}
 
 /* Hero */
 .hero{position:relative;background:linear-gradient(100deg,#fff 0%,#f1f3f9 55%,#e9edf6 100%);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:330px;align-items:center}
-.hero .txt{padding:36px 0 90px;position:relative;z-index:2}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:230px;align-items:center}
+.hero .txt{padding:26px 0 64px;position:relative;z-index:2}
 .eyebrow{font-size:11.5px;letter-spacing:3px;color:#5b6475;text-transform:uppercase;font-weight:600}
 h1{margin:12px 0 4px;font-size:clamp(34px,5vw,54px);line-height:1;font-weight:800;color:#1a1f2b;letter-spacing:-.5px}
 h1 em{font-style:normal;color:var(--red)}
@@ -49,7 +49,7 @@ h1 em{font-style:normal;color:var(--red)}
 .hero .img img,.hero .img svg{width:100%;height:100%;object-fit:cover;display:block}
 
 /* Tarjetas */
-.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-72px;position:relative;z-index:3}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-56px;position:relative;z-index:3}
 .cards:empty{display:none}
 .card{background:var(--card);border-radius:var(--radius);padding:16px 14px 14px;box-shadow:0 8px 24px rgba(20,35,63,.10);border:1px solid #eef0f6;display:flex;flex-direction:column;min-height:190px;transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,35,63,.16)}
@@ -111,7 +111,7 @@ th{background:#f1f3f9;text-align:left;padding:10px 12px;font-size:12px;text-tran
 td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 tr:hover td{background:#fafbfe}
 .note{padding:14px 16px;border-radius:12px;background:#fff7e6;border:1px solid #f2d9a0;color:#6b4e00;font-size:14px;margin-bottom:18px}
-.hero.inner .wrap{align-items:start}.hero.inner .txt{padding:36px 0 110px}.single{max-width:300px}
+.hero.inner .wrap{align-items:start;min-height:0}.hero.inner .txt{padding:18px 0}.single{max-width:300px}
 
 /* Búsqueda */
 #ov{position:fixed;inset:0;background:rgba(20,35,63,.55);display:none;z-index:50;padding:70px 16px}
@@ -137,7 +137,7 @@ mark{background:#ffe9a8;padding:0 1px;border-radius:2px}
   .hero .wrap{grid-template-columns:1fr}
   .hero .img{position:relative;width:100%;height:200px;clip-path:none;order:-1}
   .hero .wrap{min-height:0}
-  .hero .txt{padding:24px 0 90px}
+  .hero .txt{padding:20px 0 64px}
 }
 @media(max-width:600px){.cards{grid-template-columns:repeat(2,1fr)}.proj,.quick{grid-template-columns:1fr}.brand .m{font-size:14px}}
 @media(max-width:420px){.cards{grid-template-columns:1fr}}
@@ -339,6 +339,8 @@ async function loadResumen(){
 /* ===== Inicio ===== */
 async function renderHome(){
   buildHero(null, HOME);
+  document.querySelector('.hero').classList.add('wide');
+  document.querySelector('main').classList.add('wide');
   const res = await loadResumen();
   const by = Object.fromEntries(res.map(r=>[norm(r.clave),r]));
   $('#cards').innerHTML = SECTIONS.map(s=>cardHTML(s, by[s.k]||{porcentaje:0,cifra:'–',descripcion:'Sin datos'})).join('');

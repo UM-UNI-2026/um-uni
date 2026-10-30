@@ -1,7 +1,40 @@
 /* ===== Estructura común de los módulos (Presentación, pestañas, contenido) ===== */
-main.wide{max-width:1560px}
-.hero.wide .wrap{max-width:1560px}
-.org{display:grid;grid-template-columns:230px 1fr;gap:22px;padding:22px 0 40px;align-items:start}
+main.wide{max-width:none;padding:0 24px}
+.hero.wide .wrap{max-width:none;padding:0 24px}
+.hero.inner h1{font-size:clamp(28px,3.4vw,36px);margin:6px 0 2px}
+.hero.inner h2{font-size:clamp(18px,2.2vw,24px)}
+.hero.inner p{font-size:14px;margin-top:8px}
+.hero.inner .rule{margin-top:10px}
+.hero.inner .img{width:56%}
+@media(max-width:900px){.hero.inner .img{width:100%;height:130px}}
+.org{display:grid;grid-template-columns:230px 1fr;gap:32px;padding:22px 0 40px;align-items:start}
+.sfoot{margin:48px -24px 0;background:#253042;color:#fff;padding:48px 0 32px;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif}
+.sfoot .fi{max-width:1440px;margin:0 auto;padding:0 24px}
+.sfoot .grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-bottom:32px}
+.sfoot .brand{display:flex;flex-direction:column;gap:16px}
+.sfoot .brandrow{display:flex;align-items:center;gap:16px}
+.sfoot .brandrow img{height:56px;width:auto;object-fit:contain;filter:grayscale(1) invert(1)}
+.sfoot .t1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.sfoot .t2{margin:2px 0 0;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a9b4cb}
+.sfoot .desc{margin:0;font-size:13px;line-height:1.6;color:#a9b4cb;padding-right:24px}
+.sfoot .addr{display:flex;align-items:center;gap:6px;font-size:11px;color:#a9b4cb}
+.sfoot h4{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#fff}
+.sfoot .col{display:flex;flex-direction:column;gap:8px}
+.sfoot .col>a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:#a9b4cb;text-decoration:none}
+.sfoot .col>a:hover{color:#fff}
+.sfoot .box{background:#3b4659;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9b4cb}
+.sfoot .box b{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.sfoot .ok{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:#10B981}
+.sfoot .dot{width:8px;height:8px;border-radius:50%;background:#10B981}
+.sfoot .bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;border-top:1px solid #3b4659;font-size:12px;color:#a9b4cb}
+.sfoot .bottom p{margin:0}
+.sfoot .bl{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:11px}
+.sfoot .bl a{color:#a9b4cb;text-decoration:none}
+.sfoot .bl a:hover{color:#fff}
+.sfoot .badge{background:#3b4659;color:#fff;padding:4px 8px;border-radius:4px;font-weight:600}
+.sfoot svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sfoot .addr svg{width:16px;height:16px;color:#10B981}
+@media(max-width:900px){.sfoot .grid{grid-template-columns:1fr 1fr}.sfoot .brand{grid-column:1/-1}}
 .side{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:10px;position:sticky;top:96px}
 .side .sh{display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;border-radius:12px;padding:12px 14px;font-weight:700;margin-bottom:8px}
 .side .sh svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -142,15 +175,6 @@ main.wide{max-width:1560px}
 .mapbox .hs{cursor:pointer}
 .mapbox .hs:hover{outline:3px solid rgba(255,255,255,.9);box-shadow:0 0 0 5px rgba(138,28,36,.45);background:rgba(255,255,255,.08)}
 
-.foot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:10px 0 40px}
-.fbox{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.fbox h3{margin:0 0 10px;font-size:16px;color:#1a1f2b}
-.fbox p{font-size:14px;margin:0 0 10px;color:#3b4457}
-.fbox dl{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;margin:0 0 12px;font-size:14px}
-.fbox dt{font-weight:700;color:#2d3750}
-.fbox dd{margin:0;color:#3b4457}
-.fbox dd i{color:var(--muted)}
-.fbox .btn{margin-top:4px}
 
 .rofs details.hl{background:#fdecee;border-radius:10px;padding:0 10px;border-bottom:0}
 .rofs details.hl summary{color:var(--red)}
@@ -269,7 +293,6 @@ main.wide{max-width:1560px}
   .side .sprog{flex:none;margin:0 0 0 4px;padding:0 10px 0 12px;border-top:0;border-left:1px solid var(--line)}
   .vp{height:480px}
   .pres .tiles{grid-template-columns:1fr}
-  .foot{grid-template-columns:1fr}
   .bars .row{grid-template-columns:1fr;gap:4px}
   .fdl{grid-template-columns:1fr;gap:2px}
   .kpi-row{grid-template-columns:1fr}

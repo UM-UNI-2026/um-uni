@@ -27,17 +27,6 @@ const HOME = {
   desc:'La Unidad de Modernización impulsa que la UNI funcione con procesos claros, trámites simples, una estructura ordenada, normas actualizadas e innovación al servicio de estudiantes, docentes y trabajadores. Trabajamos en cinco ejes —normativa, procesos, simplificación, organización e innovación— y sus resultados se reflejan en los servicios digitales que la comunidad usa cada día.'
 };
 
-const GLOSARIO = [
-  ['Proceso','Conjunto de actividades relacionadas que transforman entradas en un resultado para un usuario.'],
-  ['Procedimiento','Secuencia detallada de pasos para realizar una actividad o un trámite.'],
-  ['TUPA','Texto Único de Procedimientos Administrativos: lista los procedimientos de la entidad con sus requisitos, plazos y costos.'],
-  ['ROF','Reglamento de Organización y Funciones: define la estructura orgánica y las funciones de la entidad.'],
-  ['CAP','Cuadro para Asignación de Personal: relación de cargos y plazas de la entidad.'],
-  ['Innovación','Creación o mejora de soluciones que generan valor para quienes usan un servicio.'],
-  ['Reto','Problema planteado como oportunidad de innovación, con la pregunta «¿Cómo podríamos…?».'],
-  ['Piloto','Prueba de una solución a pequeña escala, antes de decidir si se amplía.']
-];
-
 /* ===== Cifras (pestaña Resumen) ===== */
 function rinfo(res,key){
   const r = res.find(x=>norm(x.clave)===key) || {};
@@ -79,21 +68,42 @@ function linkify(v){
   const e = esc(v);
   return /^https?:\/\//.test(String(v).trim()) ? `<a href="${e}" target="_blank" rel="noopener" style="color:#1f5fbf;font-weight:600">Abrir</a>` : e;
 }
+const ARROW_UR = '<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+const PIN = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 function commonFooter(){
-  const c = CFG.contacto || {};
-  const v = x => x ? esc(x) : '<i>Por confirmar</i>';
-  return `<section class="foot" id="contacto">
-    <div class="fbox">
-      <h3>Contacto y horarios</h3>
-      <p>Unidad de Modernización · Universidad Nacional de Ingeniería</p>
-      <dl><dt>Correo</dt><dd>${v(c.correo)}</dd><dt>Anexo</dt><dd>${v(c.anexo)}</dd><dt>Ubicación</dt><dd>${v(c.ubicacion)}</dd><dt>Horario</dt><dd>${v(c.horario)}</dd></dl>
-      <a class="btn primary" href="${esc(CFG.asistencia||'#contacto')}"${CFG.asistencia?' target="_blank" rel="noopener"':''}>Solicitar asistencia técnica →</a>
+  const ejes = [['normativa','Normativa Institucional'],['procesos','Mapa de Procesos'],['simplificacion','Simplificación Administrativa'],['organizacion','Estructura Orgánica (ROF)'],['innovacion','Innovación Pública'],['servicios-digitales','Servicios Digitales']];
+  const enlaces = [['https://www.uni.edu.pe','Portal Principal UNI'],['https://www.transparencia.gob.pe/','Portal de Transparencia Estándar'],['https://mesadepartes.uni.edu.pe/','Mesa de Partes Virtual'],['https://directorio.uni.edu.pe/','Directorio Telefónico Institucional']];
+  return `<footer class="sfoot" id="contacto">
+    <div class="fi">
+      <div class="grid">
+        <div class="brand">
+          <div class="brandrow">
+            <img alt="Universidad Nacional de Ingeniería" src="${esc(CFG.logo||'img/logo-uni.png')}">
+            <div><p class="t1">UNIVERSIDAD NACIONAL DE INGENIERÍA</p><p class="t2">Oficina de Planeamiento y Presupuesto</p></div>
+          </div>
+          <p class="desc">Órgano técnico responsable de liderar la simplificación administrativa, optimización de macroprocesos académicos y transformación del gobierno digital para la excelencia de la ingeniería nacional.</p>
+          <div class="addr">${PIN}<span>Av. Túpac Amaru 210, Rímac, Lima - Pabellón Central</span></div>
+        </div>
+        <div class="col">
+          <h4>Ejes Estratégicos</h4>
+          ${ejes.map(([k,t])=>`<a href="${esc(navUrl(k))}">${esc(t)}</a>`).join('')}
+        </div>
+        <div class="col">
+          <h4>Enlaces Institucionales</h4>
+          ${enlaces.map(([u,t])=>`<a href="${esc(u)}" target="_blank" rel="noopener"><span>${esc(t)}</span>${ARROW_UR}</a>`).join('')}
+        </div>
+        <div class="col">
+          <h4>Soporte &amp; SIG</h4>
+          <div class="box"><b>Mesa de Ayuda de Procesos</b><span>modernizacion@uni.edu.pe</span><span>Central: (01) 481-1070 anexo 2050</span></div>
+          <div class="ok"><span class="dot"></span>Servicios Digitales Operativos 99.9%</div>
+        </div>
+      </div>
+      <div class="bottom">
+        <p>© 2025 Universidad Nacional de Ingeniería. Todos los derechos reservados.</p>
+        <div class="bl"><span class="badge">Plataforma de Modernización v2.0 - UNI</span><span>|</span><a href="#">Aviso Legal &amp; Privacidad</a><span>|</span><a href="#">Políticas de Seguridad</a></div>
+      </div>
     </div>
-    <div class="fbox">
-      <h3>Glosario</h3>
-      <dl>${GLOSARIO.map(([t,d])=>`<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>
-    </div>
-  </section>`;
+  </footer>`;
 }
 const rofArt = n => (ORG && ORG.arts || []).find(a=>a.n===n) || null;
 function quienesHTML(){

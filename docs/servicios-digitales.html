@@ -36,8 +36,8 @@ nav a.on{color:var(--red);border-bottom-color:var(--red)}
 
 /* Hero */
 .hero{position:relative;background:linear-gradient(100deg,#fff 0%,#f1f3f9 55%,#e9edf6 100%);overflow:hidden}
-.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:330px;align-items:center}
-.hero .txt{padding:36px 0 90px;position:relative;z-index:2}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;min-height:230px;align-items:center}
+.hero .txt{padding:26px 0 64px;position:relative;z-index:2}
 .eyebrow{font-size:11.5px;letter-spacing:3px;color:#5b6475;text-transform:uppercase;font-weight:600}
 h1{margin:12px 0 4px;font-size:clamp(34px,5vw,54px);line-height:1;font-weight:800;color:#1a1f2b;letter-spacing:-.5px}
 h1 em{font-style:normal;color:var(--red)}
@@ -49,7 +49,7 @@ h1 em{font-style:normal;color:var(--red)}
 .hero .img img,.hero .img svg{width:100%;height:100%;object-fit:cover;display:block}
 
 /* Tarjetas */
-.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-72px;position:relative;z-index:3}
+.cards{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:-56px;position:relative;z-index:3}
 .cards:empty{display:none}
 .card{background:var(--card);border-radius:var(--radius);padding:16px 14px 14px;box-shadow:0 8px 24px rgba(20,35,63,.10);border:1px solid #eef0f6;display:flex;flex-direction:column;min-height:190px;transition:transform .15s,box-shadow .15s}
 .card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,35,63,.16)}
@@ -111,7 +111,7 @@ th{background:#f1f3f9;text-align:left;padding:10px 12px;font-size:12px;text-tran
 td{padding:10px 12px;border-top:1px solid var(--line);vertical-align:top}
 tr:hover td{background:#fafbfe}
 .note{padding:14px 16px;border-radius:12px;background:#fff7e6;border:1px solid #f2d9a0;color:#6b4e00;font-size:14px;margin-bottom:18px}
-.hero.inner .wrap{align-items:start}.hero.inner .txt{padding:36px 0 110px}.single{max-width:300px}
+.hero.inner .wrap{align-items:start;min-height:0}.hero.inner .txt{padding:18px 0}.single{max-width:300px}
 
 /* Búsqueda */
 #ov{position:fixed;inset:0;background:rgba(20,35,63,.55);display:none;z-index:50;padding:70px 16px}
@@ -137,14 +137,47 @@ mark{background:#ffe9a8;padding:0 1px;border-radius:2px}
   .hero .wrap{grid-template-columns:1fr}
   .hero .img{position:relative;width:100%;height:200px;clip-path:none;order:-1}
   .hero .wrap{min-height:0}
-  .hero .txt{padding:24px 0 90px}
+  .hero .txt{padding:20px 0 64px}
 }
 @media(max-width:600px){.cards{grid-template-columns:repeat(2,1fr)}.proj,.quick{grid-template-columns:1fr}.brand .m{font-size:14px}}
 @media(max-width:420px){.cards{grid-template-columns:1fr}}
 /* ===== Estructura común de los módulos (Presentación, pestañas, contenido) ===== */
-main.wide{max-width:1560px}
-.hero.wide .wrap{max-width:1560px}
-.org{display:grid;grid-template-columns:230px 1fr;gap:22px;padding:22px 0 40px;align-items:start}
+main.wide{max-width:none;padding:0 24px}
+.hero.wide .wrap{max-width:none;padding:0 24px}
+.hero.inner h1{font-size:clamp(28px,3.4vw,36px);margin:6px 0 2px}
+.hero.inner h2{font-size:clamp(18px,2.2vw,24px)}
+.hero.inner p{font-size:14px;margin-top:8px}
+.hero.inner .rule{margin-top:10px}
+.hero.inner .img{width:56%}
+@media(max-width:900px){.hero.inner .img{width:100%;height:130px}}
+.org{display:grid;grid-template-columns:230px 1fr;gap:32px;padding:22px 0 40px;align-items:start}
+.sfoot{margin:48px -24px 0;background:#253042;color:#fff;padding:48px 0 32px;font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif}
+.sfoot .fi{max-width:1440px;margin:0 auto;padding:0 24px}
+.sfoot .grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding-bottom:32px}
+.sfoot .brand{display:flex;flex-direction:column;gap:16px}
+.sfoot .brandrow{display:flex;align-items:center;gap:16px}
+.sfoot .brandrow img{height:56px;width:auto;object-fit:contain;filter:grayscale(1) invert(1)}
+.sfoot .t1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em;color:#fff}
+.sfoot .t2{margin:2px 0 0;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#a9b4cb}
+.sfoot .desc{margin:0;font-size:13px;line-height:1.6;color:#a9b4cb;padding-right:24px}
+.sfoot .addr{display:flex;align-items:center;gap:6px;font-size:11px;color:#a9b4cb}
+.sfoot h4{margin:0 0 8px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:#fff}
+.sfoot .col{display:flex;flex-direction:column;gap:8px}
+.sfoot .col>a{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px;color:#a9b4cb;text-decoration:none}
+.sfoot .col>a:hover{color:#fff}
+.sfoot .box{background:#3b4659;border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#a9b4cb}
+.sfoot .box b{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#fff}
+.sfoot .ok{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:#10B981}
+.sfoot .dot{width:8px;height:8px;border-radius:50%;background:#10B981}
+.sfoot .bottom{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;border-top:1px solid #3b4659;font-size:12px;color:#a9b4cb}
+.sfoot .bottom p{margin:0}
+.sfoot .bl{display:flex;flex-wrap:wrap;align-items:center;gap:12px;font-size:11px}
+.sfoot .bl a{color:#a9b4cb;text-decoration:none}
+.sfoot .bl a:hover{color:#fff}
+.sfoot .badge{background:#3b4659;color:#fff;padding:4px 8px;border-radius:4px;font-weight:600}
+.sfoot svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.sfoot .addr svg{width:16px;height:16px;color:#10B981}
+@media(max-width:900px){.sfoot .grid{grid-template-columns:1fr 1fr}.sfoot .brand{grid-column:1/-1}}
 .side{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:10px;position:sticky;top:96px}
 .side .sh{display:flex;align-items:center;gap:10px;background:var(--red);color:#fff;border-radius:12px;padding:12px 14px;font-weight:700;margin-bottom:8px}
 .side .sh svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
@@ -285,15 +318,6 @@ main.wide{max-width:1560px}
 .mapbox .hs{cursor:pointer}
 .mapbox .hs:hover{outline:3px solid rgba(255,255,255,.9);box-shadow:0 0 0 5px rgba(138,28,36,.45);background:rgba(255,255,255,.08)}
 
-.foot{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:10px 0 40px}
-.fbox{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-.fbox h3{margin:0 0 10px;font-size:16px;color:#1a1f2b}
-.fbox p{font-size:14px;margin:0 0 10px;color:#3b4457}
-.fbox dl{display:grid;grid-template-columns:110px 1fr;gap:6px 12px;margin:0 0 12px;font-size:14px}
-.fbox dt{font-weight:700;color:#2d3750}
-.fbox dd{margin:0;color:#3b4457}
-.fbox dd i{color:var(--muted)}
-.fbox .btn{margin-top:4px}
 
 .rofs details.hl{background:#fdecee;border-radius:10px;padding:0 10px;border-bottom:0}
 .rofs details.hl summary{color:var(--red)}
@@ -412,7 +436,6 @@ main.wide{max-width:1560px}
   .side .sprog{flex:none;margin:0 0 0 4px;padding:0 10px 0 12px;border-top:0;border-left:1px solid var(--line)}
   .vp{height:480px}
   .pres .tiles{grid-template-columns:1fr}
-  .foot{grid-template-columns:1fr}
   .bars .row{grid-template-columns:1fr;gap:4px}
   .fdl{grid-template-columns:1fr;gap:2px}
   .kpi-row{grid-template-columns:1fr}
@@ -620,6 +643,8 @@ async function loadResumen(){
 /* ===== Inicio ===== */
 async function renderHome(){
   buildHero(null, HOME);
+  document.querySelector('.hero').classList.add('wide');
+  document.querySelector('main').classList.add('wide');
   const res = await loadResumen();
   const by = Object.fromEntries(res.map(r=>[norm(r.clave),r]));
   $('#cards').innerHTML = SECTIONS.map(s=>cardHTML(s, by[s.k]||{porcentaje:0,cifra:'–',descripcion:'Sin datos'})).join('');
@@ -795,17 +820,6 @@ const HOME = {
   desc:'La Unidad de Modernización impulsa que la UNI funcione con procesos claros, trámites simples, una estructura ordenada, normas actualizadas e innovación al servicio de estudiantes, docentes y trabajadores. Trabajamos en cinco ejes —normativa, procesos, simplificación, organización e innovación— y sus resultados se reflejan en los servicios digitales que la comunidad usa cada día.'
 };
 
-const GLOSARIO = [
-  ['Proceso','Conjunto de actividades relacionadas que transforman entradas en un resultado para un usuario.'],
-  ['Procedimiento','Secuencia detallada de pasos para realizar una actividad o un trámite.'],
-  ['TUPA','Texto Único de Procedimientos Administrativos: lista los procedimientos de la entidad con sus requisitos, plazos y costos.'],
-  ['ROF','Reglamento de Organización y Funciones: define la estructura orgánica y las funciones de la entidad.'],
-  ['CAP','Cuadro para Asignación de Personal: relación de cargos y plazas de la entidad.'],
-  ['Innovación','Creación o mejora de soluciones que generan valor para quienes usan un servicio.'],
-  ['Reto','Problema planteado como oportunidad de innovación, con la pregunta «¿Cómo podríamos…?».'],
-  ['Piloto','Prueba de una solución a pequeña escala, antes de decidir si se amplía.']
-];
-
 /* ===== Cifras (pestaña Resumen) ===== */
 function rinfo(res,key){
   const r = res.find(x=>norm(x.clave)===key) || {};
@@ -847,21 +861,42 @@ function linkify(v){
   const e = esc(v);
   return /^https?:\/\//.test(String(v).trim()) ? `<a href="${e}" target="_blank" rel="noopener" style="color:#1f5fbf;font-weight:600">Abrir</a>` : e;
 }
+const ARROW_UR = '<svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>';
+const PIN = '<svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0114 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 function commonFooter(){
-  const c = CFG.contacto || {};
-  const v = x => x ? esc(x) : '<i>Por confirmar</i>';
-  return `<section class="foot" id="contacto">
-    <div class="fbox">
-      <h3>Contacto y horarios</h3>
-      <p>Unidad de Modernización · Universidad Nacional de Ingeniería</p>
-      <dl><dt>Correo</dt><dd>${v(c.correo)}</dd><dt>Anexo</dt><dd>${v(c.anexo)}</dd><dt>Ubicación</dt><dd>${v(c.ubicacion)}</dd><dt>Horario</dt><dd>${v(c.horario)}</dd></dl>
-      <a class="btn primary" href="${esc(CFG.asistencia||'#contacto')}"${CFG.asistencia?' target="_blank" rel="noopener"':''}>Solicitar asistencia técnica →</a>
+  const ejes = [['normativa','Normativa Institucional'],['procesos','Mapa de Procesos'],['simplificacion','Simplificación Administrativa'],['organizacion','Estructura Orgánica (ROF)'],['innovacion','Innovación Pública'],['servicios-digitales','Servicios Digitales']];
+  const enlaces = [['https://www.uni.edu.pe','Portal Principal UNI'],['https://www.transparencia.gob.pe/','Portal de Transparencia Estándar'],['https://mesadepartes.uni.edu.pe/','Mesa de Partes Virtual'],['https://directorio.uni.edu.pe/','Directorio Telefónico Institucional']];
+  return `<footer class="sfoot" id="contacto">
+    <div class="fi">
+      <div class="grid">
+        <div class="brand">
+          <div class="brandrow">
+            <img alt="Universidad Nacional de Ingeniería" src="${esc(CFG.logo||'img/logo-uni.png')}">
+            <div><p class="t1">UNIVERSIDAD NACIONAL DE INGENIERÍA</p><p class="t2">Oficina de Planeamiento y Presupuesto</p></div>
+          </div>
+          <p class="desc">Órgano técnico responsable de liderar la simplificación administrativa, optimización de macroprocesos académicos y transformación del gobierno digital para la excelencia de la ingeniería nacional.</p>
+          <div class="addr">${PIN}<span>Av. Túpac Amaru 210, Rímac, Lima - Pabellón Central</span></div>
+        </div>
+        <div class="col">
+          <h4>Ejes Estratégicos</h4>
+          ${ejes.map(([k,t])=>`<a href="${esc(navUrl(k))}">${esc(t)}</a>`).join('')}
+        </div>
+        <div class="col">
+          <h4>Enlaces Institucionales</h4>
+          ${enlaces.map(([u,t])=>`<a href="${esc(u)}" target="_blank" rel="noopener"><span>${esc(t)}</span>${ARROW_UR}</a>`).join('')}
+        </div>
+        <div class="col">
+          <h4>Soporte &amp; SIG</h4>
+          <div class="box"><b>Mesa de Ayuda de Procesos</b><span>modernizacion@uni.edu.pe</span><span>Central: (01) 481-1070 anexo 2050</span></div>
+          <div class="ok"><span class="dot"></span>Servicios Digitales Operativos 99.9%</div>
+        </div>
+      </div>
+      <div class="bottom">
+        <p>© 2025 Universidad Nacional de Ingeniería. Todos los derechos reservados.</p>
+        <div class="bl"><span class="badge">Plataforma de Modernización v2.0 - UNI</span><span>|</span><a href="#">Aviso Legal &amp; Privacidad</a><span>|</span><a href="#">Políticas de Seguridad</a></div>
+      </div>
     </div>
-    <div class="fbox">
-      <h3>Glosario</h3>
-      <dl>${GLOSARIO.map(([t,d])=>`<dt>${esc(t)}</dt><dd>${esc(d)}</dd>`).join('')}</dl>
-    </div>
-  </section>`;
+  </footer>`;
 }
 const rofArt = n => (ORG && ORG.arts || []).find(a=>a.n===n) || null;
 function quienesHTML(){
