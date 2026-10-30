@@ -67,6 +67,7 @@ function progHTML(sec, info){
 }
 function presHTML(c){
   return `<div class="panel pres">
+    ${c.M.intro ? `<p class="statement" style="--c:${c.sec.c}">${esc(c.M.intro)}</p>` : ''}
     <div class="tiles">${c.tiles.map(t=>`<div class="tile" style="--c:${c.sec.c}"><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div>`).join('')}</div>
     <div class="acts">${c.M.buttons.map(b=>`<button class="btn${b.primary?' primary':''}" data-v="${esc(b.v)}">${esc(b.t)} →</button>`).join('')}</div>
     <p class="fuente-c">Cifras de la pestaña Resumen del Google Sheets, las mismas que aparecen en el tablero de Inicio · Corte: ${esc(c.info.corte)}</p>
@@ -641,7 +642,8 @@ const MODULOS = {
   procesos: {
     equipo:'Gestión por procesos',
     titular:'Si lo entendemos, lo podemos mejorar.',
-    desc:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso. Cada proceso debe tener un responsable, un flujo claro, tiempos definidos e indicadores que permitan medirlo, para que las unidades trabajen de forma coordinada y los servicios a estudiantes y docentes sean más predecibles. Aquí puedes explorar el mapa de procesos, revisar la ficha de cada proceso y consultar la metodología que seguimos.',
+    desc:'',
+    intro:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso. Cada proceso debe tener un responsable, un flujo claro, tiempos definidos e indicadores que permitan medirlo, para que las unidades trabajen de forma coordinada y los servicios a estudiantes y docentes sean más predecibles. Aquí puedes explorar el mapa de procesos, revisar la ficha de cada proceso y consultar la metodología que seguimos.',
     tiles: c => TILES(c, c.ext('procesos_manuales'), 'manuales aprobados'),
     buttons: [{t:'Ver mapa de procesos', v:'mapa', primary:true}, {t:'Solicitar asistencia en procesos', v:'asistencia'}],
     views: c => [
