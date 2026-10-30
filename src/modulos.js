@@ -270,6 +270,241 @@ const HERRAMIENTAS_SIMP_HTML = `<div class="panel prose"><div class="vh"><h2>Her
   </ul>
 </div>`;
 
+/* ===== Simplificación – Diseño enriquecido (basado en referencia) ===== */
+const SIMP_COMPARATIVA_HTML = `<div class="panel">
+  <div class="vh"><h2>Comparativa: Modelo Tradicional vs. Modelo UNI Ágil</h2></div>
+  <p class="vdesc">Evidencia de la reingeniería de procesos: eliminación de pasos manuales, firma digital con validez legal y fiscalización posterior.</p>
+  <div class="ba-grid">
+    <div class="ba-col">
+      <div class="ba-hdr ba-hdr-bad">
+        <div class="ba-htitle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l3 3"/></svg>Antes de la Simplificación</div>
+        <span class="sts sts-err">Modelo Histórico</span>
+      </div>
+      <div class="ba-item ba-item-bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg><div><p class="ba-t">8 a 12 Pasos Presenciales</p><p class="ba-d">Traslado físico a caja bancaria, mesa de partes de pabellón y decanato.</p></div></div>
+      <div class="ba-item ba-item-bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg><div><p class="ba-t">Plazo Promedio: 25 Días Hábiles</p><p class="ba-d">Expedientes físicos en valija interna con alto riesgo de estancamiento.</p></div></div>
+      <div class="ba-item ba-item-bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg><div><p class="ba-t">Exigencia de Fotocopias y Constancias Internas</p><p class="ba-d">Presentación redundante de documentos emitidos por la misma universidad.</p></div></div>
+      <div class="ba-item ba-item-bad"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg><div><p class="ba-t">Notificación Presencial</p><p class="ba-d">Obligación de acudir a ventanilla para recoger certificados impresos con sello de tinta.</p></div></div>
+    </div>
+    <div class="ba-col">
+      <div class="ba-hdr ba-hdr-good">
+        <div class="ba-htitle"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>Ahora (Modelo UNI Ágil)</div>
+        <span class="sts sts-ok">100% Optimizado</span>
+      </div>
+      <div class="ba-item ba-item-good"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><div><p class="ba-t">Máximo 3 Pasos 100% Virtuales</p><p class="ba-d">Autenticación única vía credencial institucional y pasarela digital de pagos.</p></div></div>
+      <div class="ba-item ba-item-good"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><div><p class="ba-t">Plazo Promedio: 2 a 5 Días Hábiles</p><p class="ba-d">Flujo automatizado por SIG-UNI con alertas automáticas por desvío de tiempo.</p></div></div>
+      <div class="ba-item ba-item-good"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><div><p class="ba-t">Cero Papel y Datos Interconectados</p><p class="ba-d">Validación automática de notas y créditos directo desde las bases de datos de facultades.</p></div></div>
+      <div class="ba-item ba-item-good"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg><div><p class="ba-t">Entrega con Código QR y Firma Digital Legal</p><p class="ba-d">Descarga directa desde casilla electrónica con verificación pública en tiempo real.</p></div></div>
+    </div>
+  </div>
+</div>`;
+
+const SIMP_ELIMINACION_HTML = `<div class="panel prose">
+  <div class="vh"><h2>Eliminación de Trámites Innecesarios</h2></div>
+  <p class="vdesc">Identificamos y eliminamos exigencias sin base legal, redundantes o ya disponibles en los sistemas de la UNI o del Estado.</p>
+  <div class="steps">
+    <div class="step hl"><b>Prohibición de copias de DNI</b><p>Eliminación obligatoria: la UNI verifica identidad a través de RENIEC vía la plataforma PIDE.</p></div>
+    <div class="step hl"><b>Prohibición de fotocopias de documentos emitidos por la UNI</b><p>Constancias, récords y certificados que ya obran en los sistemas internos no pueden volver a exigirse al usuario.</p></div>
+    <div class="step hl"><b>Fotografías físicas en trámites de graduación</b><p>Suprimidas en los procedimientos de grados y títulos; la captura se realiza digitalmente desde el portal institucional.</p></div>
+    <div class="step hl"><b>Firmas en papel con sello de tinta</b><p>Reemplazadas por firma digital con validez legal en los expedientes académicos virtuales.</p></div>
+  </div>
+  <h3>Base legal</h3>
+  <ul>
+    <li>D.L. 1203 – Uso de información de la RENIEC y PIDE</li>
+    <li>D.S. 004-2019-JUS – TUO de la Ley de Procedimiento Administrativo General</li>
+    <li>Ley 27444, arts. 40–41 – Prohibición de exigir documentos que la entidad ya posee</li>
+  </ul>
+</div>`;
+
+/* Datos de los procedimientos TUPA para el catálogo interactivo */
+const TUPA_DATA = [
+  {code:'014-DIR', badge:'100% Digital', bc:'sts-ok', cat:'estudiantes', kw:'constancia notas record academico orce facultades',
+   ip:'<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', ic:'var(--red)', ibg:'#fdecee',
+   title:'Expedición de Constancia de Notas y Récord Académico',
+   sub:'Emisión con firma digital certificada y código de validación QR por ciclo o acumulado.',
+   plazo:'2 Días Hábiles', pp:'Antes: 7 Días', tasa:'S/ 18.50', tn:'Pago Virtual UNI',
+   req:['Solicitud en línea a través de Intranet UNI con código de estudiante.','Comprobante de pago generado y validado automáticamente en la pasarela.','Haber culminado el período académico correspondiente.'],
+   eli:['Fotocopia de DNI o Carné Universitario.','Formulario valorado impreso.','Firma manual de Vicedecano en papel membretado.'],
+   dep:'Oficina Central de Registro Central y Estadística (ORCE)', dc:'Soporte: registro@uni.edu.pe', btn:'Iniciar Trámite en Línea'},
+  {code:'028-SG', badge:'Interoperabilidad SUNEDU', bc:'sts-info', cat:'egresados', kw:'grados titulos bachiller licenciatura diploma sunedu secretaria general',
+   ip:'<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>', ic:'#2563EB', ibg:'#eff6ff',
+   title:'Otorgamiento y Emisión de Grado de Bachiller y Título Profesional',
+   sub:'Gestión de expediente unificado y registro automático ante el Registro Nacional de Grados.',
+   plazo:'15 Días Hábiles', pp:'Antes: 45 Días', tasa:'S/ 245.00', tn:'Tarifa Única',
+   req:['Expediente virtual en Mesa de Partes Digital UNI.','Acta de sustentación o aprobación de plan curricular convalidado en SIG.','Constancia de no adeudo generada automáticamente por biblioteca y finanzas.'],
+   eli:['Constancias físicas de No Adeudo recabadas en 6 ventanillas distintas.','Fotografías físicas tamaño pasaporte y carné con corbata.','Copia notarial de partida de nacimiento.'],
+   dep:'Secretaría General de la UNI / Unidades de Grados de Facultad', dc:'Contacto: secgeneral@uni.edu.pe', btn:'Consultar Estado de Expediente'},
+  {code:'031-FAC', badge:'Dictamen Electrónico', bc:'sts-purple', cat:'estudiantes', kw:'convalidacion asignaturas traslado interno externo comision curricular',
+   ip:'<path d="M7 16V4m0 0L3 8m4-4l4 4"/><path d="M17 8v12m0 0l4-4m-4 4l-4-4"/>', ic:'#7C3AED', ibg:'#f5f3ff',
+   title:'Convalidación de Asignaturas por Traslado Interno / Externo',
+   sub:'Evaluación y equivalencia técnica curricular entre planes de estudio universitarios.',
+   plazo:'10 Días Hábiles', pp:'Antes: 30 Días', tasa:'S/ 42.00', tn:'Por asignatura solicitada',
+   req:['Sílabos originales foliados digitalmente en PDF con código de verificación de origen.','Certificado oficial de notas de la universidad de procedencia.','Comprobante de derecho de trámite de convalidación.'],
+   eli:['Legalización notarial física de cada página de sílabo.','Copia impresa de malla curricular si el traslado es interno en la UNI.','Trámite presencial en mesas de cada departamento académico.'],
+   dep:'Comisión Curricular de la respectiva Facultad', dc:'Coordinación: modernizacion@uni.edu.pe', btn:'Descargar Guía de Equivalencia'},
+  {code:'005-DIR', badge:'Sincronización Automática', bc:'sts-ok', cat:'estudiantes', kw:'carne universitario sunedu duplicado renovacion identificacion pase orce',
+   ip:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 10a2 2 0 11-4 0 2 2 0 014 0M6 10h2M6 14h6"/>', ic:'#10B981', ibg:'#ecfdf5',
+   title:'Expedición y Duplicado de Carné Universitario Oficial SUNEDU',
+   sub:'Solicitud, generación de lote institucional y entrega mediante cita programada o delivery de facultad.',
+   plazo:'5 Días Hábiles', pp:'Antes: 20 Días', tasa:'S/ 11.50', tn:'Costo fiscal SUNEDU',
+   req:['Estar matriculado en el semestre lectivo regular.','Fotografía con fondo blanco cargada en el portal de autoservicio estudiantil.','Pago de tasa arancelaria estándar.'],
+   eli:['Denuncia policial física en caso de duplicado (reemplazado por declaración jurada virtual).','Ficha física de matrícula firmada.'],
+   dep:'ORCE – Unidad de Asuntos Estudiantiles', dc:'Ventanilla: Pabellón Central 1er Piso', btn:'Verificar Padrón SUNEDU'},
+  {code:'009-DIR', badge:'Aprobación Inmediata', bc:'sts-warn', cat:'estudiantes', kw:'matricula extemporanea inscripcion rectificacion creditos facultad',
+   ip:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M8 14h.01M12 14h.01M16 14h.01"/>', ic:'#d97706', ibg:'#fffbeb',
+   title:'Matrícula Extemporánea y Rectificación Curricular',
+   sub:'Inscripción tardía justificada o modificación de carga horaria semestral.',
+   plazo:'1 Día Hábil', pp:'Antes: 5 Días', tasa:'S/ 35.00', tn:'Recargo extemporáneo',
+   req:['Haber cumplido con los requisitos de prelación de cursos.','No tener impedimento disciplinario o sanción administrativa vigente.','Validar cupos disponibles en el sistema Intranet UNI.'],
+   eli:['Firma manuscrita del Director de Escuela Profesional.','Justificación médica en papel membretado notarial.'],
+   dep:'Direcciones de Escuela Profesional de cada Facultad', dc:'Sistema: SIG-Académico UNI', btn:'Ingresar al Portal Académico'}
+];
+
+function simpPresHTML(c){
+  const kpis = [
+    {n:c.tiles[0].n, lbl:c.tiles[0].d, sub:'Procedimientos del TUPA actualizados y simplificados al corte actual.',
+     ic:'<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', kc:'var(--red)', kbg:'#fdecee', badge:'Simplificación TUPA', bc:'sts-ok'},
+    {n:c.tiles[1].n, lbl:c.tiles[1].d, sub:'Proporción de la meta global de simplificación completada a la fecha.',
+     ic:'<path d="M18 20V10M12 20V4M6 20v-6"/>', kc:'#2563EB', kbg:'#eff6ff', badge:'Meta de Avance', bc:'sts-info'},
+    {n:c.tiles[2].n, lbl:c.tiles[2].d, sub:'Exigencias eliminadas al constatar que ya estaban disponibles en los sistemas de la UNI o en RENIEC.',
+     ic:'<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>', kc:'#10B981', kbg:'#ecfdf5', badge:'Requisitos Eliminados', bc:'sts-ok'}
+  ];
+  return `<div class="panel">
+    <div class="vh"><h2>Panel General</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
+    <p class="vdesc">Indicadores de avance del programa de Simplificación Administrativa de la UNI.</p>
+    <div class="kpi-row">
+      ${kpis.map(k=>`<div class="kpi-card" style="--kc:${k.kc};--kc-bg:${k.kbg}">
+        <div class="kc-head">
+          <div class="kc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${k.ic}</svg></div>
+          <span class="sts ${k.bc}">${esc(k.badge)}</span>
+        </div>
+        <div>
+          <div class="kc-num">${esc(k.n)}</div>
+          <div class="kc-lbl">${esc(k.lbl)}</div>
+          <div class="kc-sub">${esc(k.sub)}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div class="acts">
+      ${c.M.buttons.map(b=>`<button class="btn${b.primary?' primary':''}" data-v="${esc(b.v)}">${esc(b.t)} →</button>`).join('')}
+    </div>
+    <p class="fuente-c">Cifras de la pestaña Resumen del Google Sheets · Corte: ${esc(c.info.corte)}</p>
+  </div>`;
+}
+
+function tupaCatalogView(el){
+  el.innerHTML = `<div class="panel">
+    <div class="vh"><h2>Catálogo de Procedimientos TUPA Simplificados</h2><span class="tag">R.R. N° 0418-2024-UNI</span></div>
+    <p class="vdesc">Herramienta de consulta ciudadana. Busca el procedimiento, filtra por tipo de usuario y revisa requisitos vigentes y eliminados.</p>
+    <div class="tupa-sb">
+      <div class="tupa-si"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input id="tsq" type="search" placeholder="Buscar por trámite, código o dependencia…"></div>
+      <div class="tupa-sf">
+        <button class="on" data-cat="all">Todos (5)</button>
+        <button data-cat="estudiantes">Estudiantes</button>
+        <button data-cat="egresados">Egresados</button>
+        <button data-cat="general">Trámites Generales</button>
+      </div>
+    </div>
+    <div class="tupa-list" id="tl">
+      ${TUPA_DATA.map((p,i)=>`<div class="tupa-item" data-cat="${esc(p.cat)}" data-kw="${esc(p.kw)}" id="ti${i}">
+        <div class="tupa-row">
+          <div class="tupa-ico" style="--ti-c:${p.ic};--ti-bg:${p.ibg}"><svg viewBox="0 0 24 24">${p.ip}</svg></div>
+          <div class="tupa-inf">
+            <div><span class="tupa-cod">${esc(p.code)}</span><span class="sts ${p.bc}">${esc(p.badge)}</span></div>
+            <p class="tupa-tit">${esc(p.title)}</p>
+            <p class="tupa-desc">${esc(p.sub)}</p>
+          </div>
+          <div class="tupa-right">
+            <div class="tupa-pl"><small>Plazo Legal</small><strong>${esc(p.plazo)}</strong><s>${esc(p.pp)}</s></div>
+            <div class="tupa-ta"><small>Tasa TUPA</small><strong>${esc(p.tasa)}</strong><em>${esc(p.tn)}</em></div>
+          </div>
+          <button class="tupa-xbtn" data-i="${i}" aria-label="Expandir detalle"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></button>
+        </div>
+        <div class="tupa-det">
+          <div class="tupa-dg">
+            <div><h4><svg viewBox="0 0 24 24" style="color:var(--red)"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>Requisitos Exigibles</h4>
+              <ul>${p.req.map(r=>`<li>${esc(r)}</li>`).join('')}</ul></div>
+            <div><h4><svg viewBox="0 0 24 24" style="color:#10B981"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Requisitos Eliminados</h4>
+              <ul>${p.eli.map(r=>`<li><s>${esc(r)}</s></li>`).join('')}</ul></div>
+            <div><h4><svg viewBox="0 0 24 24" style="color:#2563EB"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg>Dependencia Responsable</h4>
+              <p class="tdep-n">${esc(p.dep)}</p><p class="tdep-c">${esc(p.dc)}</p>
+              <button class="tupa-go"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>${esc(p.btn)}</button></div>
+          </div>
+        </div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+  el.querySelectorAll('.tupa-xbtn').forEach(btn=>{
+    btn.onclick = () => el.querySelector('#ti'+btn.dataset.i).classList.toggle('open');
+  });
+  el.querySelectorAll('.tupa-sf button').forEach(b=>{
+    b.onclick = () => {
+      el.querySelectorAll('.tupa-sf button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      const cat = b.dataset.cat;
+      el.querySelectorAll('.tupa-item').forEach(it=>{ it.style.display=(cat==='all'||it.dataset.cat===cat)?'':'none'; });
+    };
+  });
+  el.querySelector('#tsq').oninput = e => {
+    const q = e.target.value.toLowerCase();
+    el.querySelectorAll('.tupa-item').forEach(it=>{
+      it.style.display = (it.textContent+' '+it.dataset.kw).toLowerCase().includes(q) ? '' : 'none';
+    });
+  };
+}
+
+function canalView(el){
+  el.innerHTML = `<div class="panel">
+    <div class="vh"><h2>Canal de Denuncia y Mesa de Ayuda</h2></div>
+    <div class="canal-g">
+      <div class="canal-box">
+        <p class="canal-ey canal-ey-r"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Vigilancia Administrativa</p>
+        <h3 class="canal-ttl">Canal de Identificación de Trámites Engorrosos y Burocracia</h3>
+        <p class="canal-dsc">¿Detectaste un requisito innecesario, solicitud de copias duplicadas o demoras injustificadas en la UNI? Reporta directamente a la Unidad de Modernización para intervenir el proceso.</p>
+        <div class="canal-r2">
+          <div><label class="canal-lbl">Dependencia / Facultad</label>
+            <select><option value="">Seleccione una dependencia…</option><option>ORCE (Registro Central)</option><option>Facultad de Ingeniería Mecánica</option><option>Facultad de Ingeniería Civil</option><option>Facultad de Arquitectura y Urbanismo</option><option>Mesa de Partes Central</option><option>Otra dependencia administrativa</option></select></div>
+          <div><label class="canal-lbl">Tipo de Obstáculo</label>
+            <select><option>Exigencia de requisito redundante / prohibido</option><option>Incumplimiento de plazo máximo TUPA</option><option>Obligación de pago o trámite físico indebido</option><option>Cobro de tasa no publicada oficialmente</option></select></div>
+        </div>
+        <div class="canal-fw"><label class="canal-lbl">Detalle del Trámite y Evidencia</label>
+          <textarea rows="3" placeholder="Describa el número de expediente, fecha y el obstáculo que se presentó…"></textarea></div>
+        <div class="canal-r2">
+          <div><label class="canal-lbl">Correo Electrónico (Opcional)</label><input type="email" placeholder="usuario@uni.edu.pe"></div>
+          <div style="display:flex;align-items:flex-end">
+            <button class="canal-sub" id="csend"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>Enviar Observación</button></div>
+        </div>
+        <div class="canal-ok" id="cok"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>Aporte recibido. Su alerta será evaluada por el equipo de Simplificación en un plazo de 24 horas.</div>
+      </div>
+      <div class="canal-help">
+        <p class="canal-ey canal-ey-b"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Atención Continua</p>
+        <h3 class="canal-ttl">Mesa de Ayuda al Estudiante y Usuario Externo</h3>
+        <p class="canal-dsc">Canales directos para resolver dudas sobre expedientes TUPA, firmas digitales y uso de la pasarela virtual.</p>
+        <div class="hchan">
+          <div class="hc-row">
+            <div class="hc-ico" style="--hc-bg:#eff6ff;--hc-c:#2563EB"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+            <div><div class="hc-lbl">Correo de Orientación</div><div class="hc-val">simplificacion@uni.edu.pe</div><div class="hc-note">Respuesta en menos de 4 horas hábiles</div></div>
+          </div>
+          <div class="hc-row">
+            <div class="hc-ico" style="--hc-bg:#ecfdf5;--hc-c:#10B981"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013 5.18a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.91 10.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7a2 2 0 011.72 2.01z"/></svg></div>
+            <div><div class="hc-lbl">Central Telefónica UNI</div><div class="hc-val">(01) 481-1070 Anexos 2050 / 2055</div><div class="hc-note">Lunes a Viernes de 08:00 a 16:30 hrs</div></div>
+          </div>
+          <div class="hc-row">
+            <div class="hc-ico" style="--hc-bg:#fdecee;--hc-c:var(--red)"><svg viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3z"/><path d="M5 17a3 3 0 013-3h11"/></svg></div>
+            <div><div class="hc-lbl">Compendio Normativo Vigente</div><a class="hc-dl" href="#"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descargar Texto Íntegro TUPA UNI 2024-2025</a></div>
+          </div>
+        </div>
+        <div class="canal-sts">Módulo Operativo · D.L. 1203 / D.S. 004-2019-JUS</div>
+      </div>
+    </div>
+  </div>`;
+  const btn = el.querySelector('#csend'), ok = el.querySelector('#cok');
+  btn.onclick = () => {
+    ok.style.display = 'flex'; btn.disabled = true; btn.style.opacity = '.5';
+    setTimeout(()=>{ ok.style.display='none'; btn.disabled=false; btn.style.opacity=''; }, 6000);
+  };
+}
+
 const CICLO_HTML = `<div class="panel prose"><div class="vh"><h2>Ciclo de innovación</h2></div>
   <p class="vdesc">La NT 003-2025-PCM-SGP organiza la innovación en cuatro fases. Una idea avanza por ellas y el portafolio indica en cuál está cada iniciativa.</p>
   <div class="steps">
@@ -663,20 +898,19 @@ const MODULOS = {
   simplificacion: {
     equipo:'Simplificación administrativa',
     titular:'Menos pasos, menos papeles, más resultados.',
-    desc:'Revisamos los procedimientos y servicios de la UNI para eliminar requisitos innecesarios, reducir plazos y costos, y digitalizar lo que se pueda. Así, estudiantes, egresados y trabajadores resuelven sus trámites con rapidez y sin vueltas. Aquí encontrarás el TUPA, el estado de revisión de cada procedimiento, ejemplos de antes y después, nuestra metodología y un buzón para proponer mejoras.',
+    desc:'Eliminación sistemática de barreras burocráticas, reducción de plazos de atención y digitalización del TUPA para toda la comunidad universitaria.',
     tiles: c => TILES(c, c.ext('simplificacion_pasos'), 'pasos o requisitos eliminados'),
-    buttons: [{t:'Ver procedimientos (TUPA)', v:'tupa', primary:true}, {t:'Proponer una simplificación', v:'buzon'}],
+    buttons: [{t:'Explorar Catálogo TUPA', v:'catalogo', primary:true}, {t:'Reportar Trámite Engorroso', v:'canal'}],
+    presRun: (el, c) => { el.innerHTML = simpPresHTML(c); },
     views: c => [
-      {id:'tupa', label:'Procedimientos (TUPA)', icon:VI.table, run:el=>tableView(el,'simplificacion',{title:'Procedimientos y servicios (TUPA / TUSNE)', intro:'Filtra por unidad y estado de revisión. Cada procedimiento muestra sus requisitos, plazo, costo y base legal.', ph:'Buscar procedimiento, unidad o requisito…'})},
-      {id:'estado', label:'Estado de simplificación', icon:VI.flow, run:el=>estadoView(el)},
-      {id:'antes', label:'Antes y después', icon:VI.steps, run:el=>{el.innerHTML=ANTES_DESPUES_HTML}},
+      {id:'catalogo', label:'Catálogo TUPA Simplificado', icon:VI.table, run:el=>tupaCatalogView(el)},
+      {id:'eliminacion', label:'Eliminación de Trámites Innecesarios', icon:VI.list, run:el=>{el.innerHTML=SIMP_ELIMINACION_HTML}},
+      {id:'comparativa', label:'Comparativa Antes vs Después', icon:VI.steps, run:el=>{el.innerHTML=SIMP_COMPARATIVA_HTML}},
+      {id:'estado', label:'Reportes de Ahorro & Eficiencia', icon:VI.flow, run:el=>estadoView(el)},
+      {id:'canal', label:'Canal de Denuncia Burocrática', icon:VI.form, run:el=>canalView(el)},
       {id:'metodologia', label:'Metodología', icon:VI.layers, run:el=>{el.innerHTML=METODO_SIMP_HTML}},
       {id:'buenas', label:'Buenas prácticas', icon:VI.info, run:el=>{el.innerHTML=BUENAS_SIMP_HTML}},
-      {id:'herramientas', label:'Herramientas', icon:VI.tool, run:el=>{el.innerHTML=HERRAMIENTAS_SIMP_HTML}},
-      {id:'buzon', label:'Buzón ciudadano', icon:VI.form, run:el=>formView(el, formDef('Buzón ciudadano','Propuesta de simplificación – Buzón ciudadano','Reporta un trámite complicado o propón una mejora.',[
-        {n:'tramite', l:'Trámite o procedimiento', req:1},
-        {n:'dificultad', l:'Paso, requisito o plazo que genera dificultad', area:1, req:1},
-        {n:'propuesta', l:'Propuesta de mejora', area:1}]))}
+      {id:'herramientas', label:'Herramientas', icon:VI.tool, run:el=>{el.innerHTML=HERRAMIENTAS_SIMP_HTML}}
     ]
   },
 
@@ -750,32 +984,46 @@ async function renderModule(key){
   document.querySelector('.hero').classList.add('inner','wide');
   document.querySelector('main').classList.add('wide');
 
-  const res = await loadResumen();
-  const info = rinfo(res,key);
-  const c = {res, key, sec, M, info, corte:info.corte, ext:k=>ext(res,k), current:null};
-  c.tiles = M.tiles(c);
-  const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{el.innerHTML=presHTML(cx)}}, ...M.views(c)];
-  c.go = id => {
-    const v = views.find(x=>x.id===id) || views[0];
-    c.current = v.id;
-    document.querySelectorAll('.side [data-v]').forEach(b=>b.classList.toggle('on', b.dataset.v===v.id));
-    v.run($('#view'), c);
-  };
+  let activeC = null;
+  function build(res){
+    const info = rinfo(res,key);
+    const c = {res, key, sec, M, info, corte:info.corte, ext:k=>ext(res,k), current:null};
+    c.tiles = M.tiles(c);
+    const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{ M.presRun ? M.presRun(el,cx) : (el.innerHTML=presHTML(cx)); }}, ...M.views(c)];
+    c.go = id => {
+      const v = views.find(x=>x.id===id) || views[0];
+      c.current = v.id;
+      document.querySelectorAll('.side [data-v]').forEach(b=>b.classList.toggle('on', b.dataset.v===v.id));
+      v.run($('#view'), c);
+    };
+    $('#inner').innerHTML = `<div class="org">
+      <aside class="side">
+        <div class="sh">${svgIcon(sec.ic)}${esc(sec.t)}</div>
+        ${views.filter(v=>v.menu!==false).map(v=>`<button data-v="${v.id}">${svgIcon(v.icon)}${esc(v.label)}</button>`).join('')}
+        ${progHTML(sec, info)}
+      </aside>
+      <section><div id="view"></div></section>
+    </div>${commonFooter()}`;
+    $('#inner').onclick = e => {
+      const b = e.target.closest('[data-v]');
+      if(b){ e.preventDefault(); c.go(b.dataset.v); }
+    };
+    animateRings();
+    /* Un enlace con #vista (por ejemplo procesos.html#mapa) abre directamente esa pestaña */
+    c.defaultStart = () => { const h=(location.hash||'').slice(1); c.go(views.some(v=>v.id===h) ? h : 'presentacion'); };
+    activeC = c;
+    return c;
+  }
 
-  $('#inner').innerHTML = `<div class="org">
-    <aside class="side">
-      <div class="sh">${svgIcon(sec.ic)}${esc(sec.t)}</div>
-      ${views.filter(v=>v.menu!==false).map(v=>`<button data-v="${v.id}">${svgIcon(v.icon)}${esc(v.label)}</button>`).join('')}
-      ${progHTML(sec, info)}
-    </aside>
-    <section><div id="view"></div></section>
-  </div>${commonFooter()}`;
-  $('#inner').onclick = e => {
-    const b = e.target.closest('[data-v]');
-    if(b){ e.preventDefault(); c.go(b.dataset.v); }
-  };
-  animateRings();
-  /* Un enlace con #vista (por ejemplo procesos.html#mapa) abre directamente esa pestaña */
-  c.defaultStart = () => { const h=(location.hash||'').slice(1); c.go(views.some(v=>v.id===h) ? h : 'presentacion'); };
-  if(M.start) M.start(c); else c.defaultStart();
+  /* Render inmediato con datos de respaldo para que el primer paint incluya contenido */
+  const cDemo = build(DEMO_RESUMEN);
+  if(M.start) M.start(cDemo); else cDemo.defaultStart();
+
+  /* Reemplazar con datos reales si llegan */
+  const res = await loadResumen();
+  if(res !== DEMO_RESUMEN){
+    const prev = activeC.current;
+    const cReal = build(res);
+    if(M.start) M.start(cReal); else (prev ? cReal.go(prev) : cReal.defaultStart());
+  }
 }

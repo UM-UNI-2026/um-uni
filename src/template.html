@@ -329,7 +329,10 @@ function animateRings(){
 }
 
 async function loadResumen(){
-  try{ const d = asObjects(await sheet(CFG.tabs.resumen)); if(d.length) return d; }catch(e){}
+  try{
+    const race = Promise.race([sheet(CFG.tabs.resumen), new Promise((_,rej)=>setTimeout(()=>rej(new Error('t')),4000))]);
+    const d = asObjects(await race); if(d.length) return d;
+  }catch(e){}
   return DEMO_RESUMEN;
 }
 
