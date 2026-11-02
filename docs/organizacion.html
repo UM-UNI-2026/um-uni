@@ -565,9 +565,9 @@ const svgIcon = p => `<svg viewBox="0 0 24 24">${p}</svg>`;
 
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display='none',3200)}
 
-function goto(key){
+function goto(key, view){
   const url = (CFG.nav||{})[pageKey(key)];
-  if(url){ window.location.href = url; }
+  if(url){ window.location.href = view ? url+'#'+view : url; }
   else toast('Falta la URL de «'+key+'» en config.json (nav). Luego ejecuta build.ps1.');
 }
 
@@ -611,7 +611,7 @@ function buildHeader(){
     `<a href="#" data-go="${s.k}" class="${s.k===PAGE||(s.k==='servicios'&&PAGE==='servicios-digitales')?'on':''}">${esc(s.t)}</a>`).join('');
   document.addEventListener('click',e=>{
     const a=e.target.closest('[data-go]'); if(!a) return;
-    e.preventDefault(); goto(a.dataset.go);
+    e.preventDefault(); goto(a.dataset.go, a.dataset.view);
   });
   $('#burger').onclick=()=>$('#nav').classList.toggle('open');
 }
@@ -641,7 +641,7 @@ function buildHero(sec, M){
 function cardHTML(s, d){
   const pct = Math.max(0,Math.min(100,Number(d.porcentaje)||0));
   const R=30, C=2*Math.PI*R;
-  return `<a class="card" href="#" data-go="${s.k}" style="--c:${s.c}">
+  return `<a class="card" href="#" data-go="${s.k}" data-view="${s.k==='simplificacion'?'avances':''}" style="--c:${s.c}">
     <div class="top"><span class="ico">${svgIcon(s.ic)}</span><h3>${esc(s.t)}</h3><span class="chev">›</span></div>
     <div class="kpi">
       <div class="ring"><svg viewBox="0 0 74 74"><circle class="bg" cx="37" cy="37" r="${R}"/><circle class="fg" cx="37" cy="37" r="${R}" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-off="${C*(1-pct/100)}"/></svg><b>${pct}%</b></div>
