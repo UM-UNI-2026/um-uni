@@ -45,7 +45,9 @@ function Save-Jpeg($bmp, [string]$file, [int]$q = 82) {
 function Make-Hero([string]$srcName, [string]$dstName) {
   if (-not (Test-Path "$img\$srcName")) { return $null }
   $b = New-Object System.Drawing.Bitmap "$img\$srcName"
-  $d = Resize-Bmp $b 1400; $b.Dispose()
+  $cw = $b.Width; $ch = [int]($cw / 3.4); if ($ch -gt $b.Height) { $ch = $b.Height; $cw = [int]($ch * 3.4) }
+  $crop = $b.Clone((New-Object System.Drawing.Rectangle ([int](($b.Width - $cw) / 2)), ([int](($b.Height - $ch) / 2)), $cw, $ch), $b.PixelFormat); $b.Dispose()
+  $d = Resize-Bmp $crop 1400; $crop.Dispose()
   Save-Jpeg $d "$out\img\$dstName" 82; $d.Dispose()
   return "img/$dstName"
 }
@@ -75,6 +77,15 @@ $secImg = [ordered]@{
 }
 $secPath = @{}
 foreach ($k in $secImg.Keys) { $h = Make-Hero $secImg[$k] "hero-$k.jpg"; if ($h) { $secPath[$k] = $h } }
+
+# Imagen de definición de cada módulo (Presentación)
+$defImg = [ordered]@{ 'normativa'='Normativa_def.png'; 'procesos'='Procesos_def.png'; 'simplificacion'='Simplificacion_def.png'; 'organizacion'='Organizacion_def.png'; 'innovacion'='Innovacion_def.png'; 'servicios'='Servicios_def.png' }
+foreach ($k in $defImg.Keys) {
+  if (-not (Test-Path "$img\$($defImg[$k])")) { continue }
+  $bm = New-Object System.Drawing.Bitmap "$img\$($defImg[$k])"
+  $d = Resize-Bmp $bm 1200; $bm.Dispose()
+  Save-Jpeg $d "$out\img\def-$k.jpg" 84; $d.Dispose()
+}
 
 # Organigrama (imagen + datos de la página Organización)
 $orgSrc = "$root\documentos_referencia\organigrama_v1.jpg"

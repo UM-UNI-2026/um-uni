@@ -24,7 +24,7 @@ const VI = {
 const HOME = {
   equipo:'UNI',
   titular:'Una universidad que se moderniza para servir mejor',
-  desc:'La Unidad de Modernización impulsa que la UNI funcione con procesos claros, trámites simples, una estructura ordenada, normas actualizadas e innovación al servicio de estudiantes, docentes y trabajadores. Trabajamos en cinco ejes —normativa, procesos, simplificación, organización e innovación— y sus resultados se reflejan en los servicios digitales que la comunidad usa cada día.'
+  desc:'Impulsamos una UNI con procesos claros, trámites simples, estructura ordenada, normas actualizadas e innovación. Trabajamos en cinco ejes cuyos resultados llegan a la comunidad a través de los servicios digitales.'
 };
 
 /* ===== Cifras (pestaña Resumen) ===== */
@@ -54,12 +54,27 @@ function progHTML(sec, info){
       <div><div class="n">${esc(info.cifra)}</div><div class="d">${esc(info.desc)}</div><div class="fuente" style="font-size:10.5px;color:var(--muted);margin-top:4px">Corte: ${esc(info.corte)}</div></div>
     </div>`;
 }
-function presHTML(c){
+const DEFS = {
+  normativa:{t:'Ordenamos, elaboramos y actualizamos las normas internas de la UNI: directivas, reglamentos, lineamientos y manuales. También orientamos a las unidades sobre cómo redactar y aprobar sus documentos. Aquí publicamos qué norma está vigente, quién la aprobó y cómo proponer una nueva.'},
+  procesos:{t:'Identificamos, documentamos y mejoramos los procesos de la UNI. Definimos sus flujos, responsables, tiempos e indicadores, y los reunimos en el mapa de procesos y en los manuales aprobados. Nuestro objetivo es que los servicios sean más claros, medibles y predecibles.'},
+  simplificacion:{t:'Revisamos los trámites y procedimientos de la UNI para eliminar pasos, requisitos y plazos innecesarios, en el marco de la simplificación administrativa del Estado. Aquí presentamos el catálogo TUPA, los avances logrados y el canal para reportar trámites engorrosos.'},
+  organizacion:{t:'Diseñamos y actualizamos la estructura de la UNI: órganos, unidades, funciones y puestos. Buscamos que cada función tenga un responsable claro, sin duplicidades ni vacíos. Aquí publicamos el organigrama, el ROF y la asistencia para ordenar la estructura de cada unidad.'},
+  innovacion:{t:'Impulsamos la innovación en la UNI según la NT 003-2025-PCM-SGP. Escuchamos a la comunidad universitaria, definimos retos, probamos soluciones en piloto y escalamos las que mejoran los servicios. Aquí presentamos las iniciativas en marcha, el ciclo de innovación y los retos abiertos.'},
+  servicios:{t:'Reunimos los trámites y servicios de la UNI que ya fueron simplificados y digitalizados, para usarlos en línea desde cualquier lugar. Aquí presentamos el catálogo, la verificación de autenticidad de documentos, las guías de uso y el soporte técnico.'}
+};
+const defHTML = key => DEFS[key] ? `<figure class="defn"><img src="img/def-${key}.jpg" alt=""><p>${esc(DEFS[key].t)}</p></figure>` : '';
+function avancesHTML(c){
+  if(c.key==='simplificacion') return simpAvancesHTML(c);
   return `<div class="panel pres">
-    ${c.M.intro ? `<p class="statement" style="--c:${c.sec.c}">${esc(c.M.intro)}</p>` : ''}
+    <div class="vh"><h2>Avances</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
     <div class="tiles">${c.tiles.map(t=>`<div class="tile" style="--c:${c.sec.c}"><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div>`).join('')}</div>
+    <p class="fuente-c">Cifras de la pestaña Resumen del Google Sheets · Corte: ${esc(c.info.corte)}</p>
+  </div>`;
+}
+function presHTML(c){
+  return `<div class="panel pres">${defHTML(c.key)}
+    ${c.M.intro ? `<p class="statement" style="--c:${c.sec.c}">${esc(c.M.intro)}</p>` : ''}
     <div class="acts">${c.M.buttons.map(b=>`<button class="btn${b.primary?' primary':''}" data-v="${esc(b.v)}">${esc(b.t)} →</button>`).join('')}</div>
-    <p class="fuente-c">Cifras de la pestaña Resumen del Google Sheets, las mismas que aparecen en el tablero de Inicio · Corte: ${esc(c.info.corte)}</p>
   </div>`;
 }
 
@@ -369,7 +384,7 @@ const TUPA_DATA = [
    dep:'Direcciones de Escuela Profesional de cada Facultad', dc:'Sistema: SIG-Académico UNI', btn:'Ingresar al Portal Académico'}
 ];
 
-function simpPresHTML(c){
+function simpAvancesHTML(c){
   const kpis = [
     {n:c.tiles[0].n, lbl:c.tiles[0].d, sub:'Procedimientos del TUPA actualizados y simplificados al corte actual.',
      ic:'<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', kc:'var(--red)', kbg:'#fdecee', badge:'Simplificación TUPA', bc:'sts-ok'},
@@ -379,7 +394,7 @@ function simpPresHTML(c){
      ic:'<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>', kc:'#10B981', kbg:'#ecfdf5', badge:'Requisitos Eliminados', bc:'sts-ok'}
   ];
   return `<div class="panel">
-    <div class="vh"><h2>Panel General</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
+    <div class="vh"><h2>Avances</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
     <p class="vdesc">Indicadores de avance del programa de Simplificación Administrativa de la UNI.</p>
     <div class="kpi-row">
       ${kpis.map(k=>`<div class="kpi-card" style="--kc:${k.kc};--kc-bg:${k.kbg}">
@@ -394,10 +409,6 @@ function simpPresHTML(c){
         </div>
       </div>`).join('')}
     </div>
-    <div class="acts">
-      ${c.M.buttons.map(b=>`<button class="btn${b.primary?' primary':''}" data-v="${esc(b.v)}">${esc(b.t)} →</button>`).join('')}
-    </div>
-    <p class="fuente-c">Cifras de la pestaña Resumen del Google Sheets · Corte: ${esc(c.info.corte)}</p>
   </div>`;
 }
 
@@ -868,7 +879,7 @@ const MODULOS = {
   normativa: {
     equipo:'Documentos normativos',
     titular:'Reglas claras para decidir con seguridad.',
-    desc:'La Unidad de Modernización ordena, elabora y actualiza los documentos normativos de la UNI: directivas, reglamentos, lineamientos y manuales. Nuestro propósito es que cada unidad sepa qué norma aplica, quién la aprobó, si está vigente y qué pasos seguir para proponer una nueva. Aquí encontrarás el repositorio normativo, las normas externas que rigen a la Universidad, la guía para elaborar documentos y el seguimiento de los que están en elaboración.',
+    desc:'Ordenamos, elaboramos y actualizamos las normas de la UNI: directivas, reglamentos, lineamientos y manuales. Aquí consultamos qué norma está vigente, quién la aprobó y cómo proponer una nueva.',
     tiles: c => TILES(c, c.ext('normativa_elaboracion'), 'documentos en elaboración'),
     buttons: [{t:'Consultar normativa', v:'repositorio', primary:true}, {t:'Solicitar una directiva', v:'solicitud'}],
     views: c => [
@@ -887,8 +898,7 @@ const MODULOS = {
   procesos: {
     equipo:'Gestión por procesos',
     titular:'Si lo entendemos, lo podemos mejorar.',
-    desc:'',
-    intro:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso. Cada proceso debe tener un responsable, un flujo claro, tiempos definidos e indicadores que permitan medirlo, para que las unidades trabajen de forma coordinada y los servicios a estudiantes y docentes sean más predecibles. Aquí puedes explorar el mapa de procesos, revisar la ficha de cada proceso y consultar la metodología que seguimos.',
+    desc:'Identificamos, documentamos y mejoramos los procesos de la UNI, desde la admisión hasta el egreso. Asignamos responsables, definimos flujos, tiempos e indicadores para que los servicios sean más predecibles.',
     tiles: c => TILES(c, c.ext('procesos_manuales'), 'manuales aprobados'),
     buttons: [{t:'Ver mapa de procesos', v:'mapa', primary:true}, {t:'Solicitar asistencia en procesos', v:'asistencia'}],
     views: c => [
@@ -908,10 +918,9 @@ const MODULOS = {
   simplificacion: {
     equipo:'Simplificación administrativa',
     titular:'Menos pasos, menos papeles, más resultados.',
-    desc:'Eliminación sistemática de barreras burocráticas, reducción de plazos de atención y digitalización del TUPA para toda la comunidad universitaria.',
+    desc:'Eliminamos barreras burocráticas, reducimos plazos de atención y digitalizamos el TUPA para toda la comunidad universitaria.',
     tiles: c => TILES(c, c.ext('simplificacion_pasos'), 'pasos o requisitos eliminados'),
     buttons: [{t:'Explorar Catálogo TUPA', v:'catalogo', primary:true}, {t:'Reportar Trámite Engorroso', v:'canal'}],
-    presRun: (el, c) => { el.innerHTML = simpPresHTML(c); },
     views: c => [
       {id:'catalogo', label:'Catálogo TUPA Simplificado', icon:VI.table, run:el=>tupaCatalogView(el)},
       {id:'eliminacion', label:'Eliminación de Trámites Innecesarios', icon:VI.list, run:el=>{el.innerHTML=SIMP_ELIMINACION_HTML}},
@@ -927,7 +936,7 @@ const MODULOS = {
   organizacion: {
     equipo:'Diseño organizacional',
     titular:'Una estructura pensada para cumplir la misión.',
-    desc:'Diseñamos y actualizamos la estructura de la UNI: organigrama, órganos, unidades, funciones y puestos. Buscamos que cada función tenga un responsable claro, sin duplicidades ni vacíos, y que la estructura responda a los objetivos de la Universidad y a los lineamientos de organización del Estado. Aquí puedes consultar el organigrama, el directorio de órganos y unidades, la ruta de diseño organizacional y los cargos y documentos relacionados.',
+    desc:'Diseñamos y actualizamos la estructura de la UNI: órganos, unidades, funciones y puestos. Buscamos que cada función tenga un responsable claro, sin duplicidades ni vacíos.',
     tiles: c => TILES(c, ORG && ORG.arts ? ORG.arts.length : '—', 'artículos del ROF'),
     buttons: [{t:'Ver organigrama', v:'organigrama', primary:true}, {t:'Solicitar asistencia en diseño organizacional', v:'asistencia'}],
     start: c => {
@@ -950,7 +959,7 @@ const MODULOS = {
   innovacion: {
     equipo:'Innovación pública',
     titular:'Las mejores ideas nacen de quienes viven el problema.',
-    desc:'Impulsamos la innovación en la UNI siguiendo la NT 003-2025-PCM-SGP: escuchamos a estudiantes, docentes y trabajadores, definimos retos, probamos soluciones en piloto y escalamos las que mejoran los servicios de la Universidad. Cada idea avanza por cuatro fases: descubrir, definir, idear y entregar. Aquí puedes revisar el portafolio de iniciativas, los retos abiertos y el laboratorio de innovación, o proponer tu propia idea.',
+    desc:'Impulsamos la innovación según la NT 003-2025-PCM-SGP: escuchamos a la comunidad, definimos retos, probamos soluciones en piloto y escalamos las que mejoran los servicios.',
     tiles: c => TILES(c, c.ext('innovacion_pilotos'), 'pilotos validados'),
     buttons: [{t:'Ver iniciativas', v:'portafolio', primary:true}, {t:'Proponer una idea o reto', v:'proponer'}],
     views: c => [
@@ -971,7 +980,7 @@ const MODULOS = {
   servicios: {
     equipo:'Servicios digitales',
     titular:'Trámites de la UNI, desde donde estés.',
-    desc:'Reunimos los servicios simplificados y digitalizados que la comunidad UNI puede usar en línea, con verificación de autenticidad de los documentos. Aquí puedes ver qué servicios están disponibles, cuáles están en desarrollo y cómo usarlos. Si tienes dificultades, el soporte técnico te orienta.',
+    desc:'Reunimos los servicios simplificados y digitalizados que la comunidad usa en línea, con verificación de autenticidad de sus documentos. Si tienes dificultades, nuestro soporte técnico te orienta.',
     tiles: c => TILES(c, c.ext('servicios_en_desarrollo'), 'servicios en desarrollo'),
     buttons: [{t:'Ver catálogo', v:'catalogo', primary:true}, {t:'Solicitar asistencia técnica', v:'asistencia'}],
     views: c => [
@@ -999,7 +1008,7 @@ async function renderModule(key){
     const info = rinfo(res,key);
     const c = {res, key, sec, M, info, corte:info.corte, ext:k=>ext(res,k), current:null};
     c.tiles = M.tiles(c);
-    const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{ M.presRun ? M.presRun(el,cx) : (el.innerHTML=presHTML(cx)); }}, ...M.views(c)];
+    const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{ el.innerHTML=presHTML(cx); }}, {id:'avances', label:'Avances', icon:VI.steps, run:(el,cx)=>{ el.innerHTML=avancesHTML(cx); }}, ...M.views(c)];
     c.go = id => {
       const v = views.find(x=>x.id===id) || views[0];
       c.current = v.id;
