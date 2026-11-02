@@ -120,11 +120,6 @@ function commonFooter(){
     </div>
   </footer>`;
 }
-const rofArt = n => (ORG && ORG.arts || []).find(a=>a.n===n) || null;
-function quienesHTML(){
-  const a33 = rofArt(33);
-  return `<div class="panel prose"><p>${esc(a33 ? a33.b[0] : 'La Unidad de Modernización impulsa la modernización institucional de la UNI.')}</p></div>`;
-}
 
 /* ===== Tablas desde Google Sheets ===== */
 function panelHTML(o, inner){

@@ -705,24 +705,10 @@ async function renderHome(){
     <p class="caption">Servicios digitales es el resultado visible de los cinco ejes: Normativa, Procesos, Simplificación, Organización e Innovación.</p>
     <div class="sec-h"><h2>Proyectos de modernización</h2><span class="ln"></span>${proj.length>4?'<a href="#" id="allProj">Ver todos los proyectos →</a>':''}</div>
     <div class="proj" id="projList">${proj.slice(0,4).map(projCard).join('')}</div>
-    <div class="sec-h"><h2>Quiénes somos</h2><span class="ln"></span></div>
-    ${quienesHTML()}
-    <div class="sec-h"><h2>Novedades</h2><span class="ln"></span></div>
-    <div id="novedades"></div>
     <div class="sec-h"><h2>Accesos rápidos</h2><span class="ln"></span></div>
     <div class="quick">${QUICK.map(q=>`<a class="q" href="${esc(q.href())}" style="--c:${q.c}"><span class="qi">${svgIcon(q.ic)}</span><span>${esc(q.t)}</span><b>›</b></a>`).join('')}</div>`;
   const all=$('#allProj');
   if(all) all.onclick=e=>{ e.preventDefault(); const more=!all.dataset.m; all.dataset.m=more?'1':''; $('#projList').innerHTML=(more?proj:proj.slice(0,4)).map(projCard).join(''); all.textContent=more?'Ver menos proyectos ←':'Ver todos los proyectos →'; };
-  renderNovedades();
-}
-
-async function renderNovedades(){
-  const box = $('#novedades'); if(!box) return;
-  let items = [];
-  try{ items = asObjects(await sheet(CFG.tabs.novedades)); }catch(e){}
-  box.innerHTML = items.length
-    ? `<div class="panel novs">${items.slice(0,5).map(n=>`<div class="nov"><small>${esc(n.fecha)}</small><b>${esc(n.titulo)}</b><p>${esc(n.detalle)}</p>${n.enlace?`<a href="${esc(n.enlace)}" target="_blank" rel="noopener">Ver más →</a>`:''}</div>`).join('')}</div>`
-    : `<div class="panel"><div class="empty">Aún no hay novedades publicadas. Se mostrarán aquí desde la pestaña «${esc(CFG.tabs.novedades)}» del Google Sheets.</div></div>`;
 }
 
 /* ===== Búsqueda ===== */
@@ -947,11 +933,6 @@ function commonFooter(){
       </div>
     </div>
   </footer>`;
-}
-const rofArt = n => (ORG && ORG.arts || []).find(a=>a.n===n) || null;
-function quienesHTML(){
-  const a33 = rofArt(33);
-  return `<div class="panel prose"><p>${esc(a33 ? a33.b[0] : 'La Unidad de Modernización impulsa la modernización institucional de la UNI.')}</p></div>`;
 }
 
 /* ===== Tablas desde Google Sheets ===== */
