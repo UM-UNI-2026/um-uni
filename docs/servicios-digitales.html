@@ -656,12 +656,21 @@ function animateRings(){
     document.querySelectorAll('.ring .fg').forEach(c=>c.style.strokeDashoffset=c.dataset.off)));
 }
 
+async function tupaResumenRow(){
+  if(!CFG.tupaSheetId) return null;
+  try{
+    const s = tupaStats(await loadTupa());
+    return {clave:'simplificacion', porcentaje:Math.round(s.avg), cifra:s.n-s.pend, descripcion:`procedimientos con avance de ${s.n}`, corte:new Date().toLocaleDateString('es-PE')};
+  }catch(e){ return null; }
+}
 async function loadResumen(){
+  let d = DEMO_RESUMEN;
   try{
     const race = Promise.race([sheet(CFG.tabs.resumen), new Promise((_,rej)=>setTimeout(()=>rej(new Error('t')),4000))]);
-    const d = asObjects(await race); if(d.length) return d;
+    const x = asObjects(await race); if(x.length) d = x;
   }catch(e){}
-  return DEMO_RESUMEN;
+  const row = await tupaResumenRow();
+  return row ? [...d.filter(r=>norm(r.clave)!=='simplificacion'), row] : d;
 }
 
 /* ===== Inicio ===== */
