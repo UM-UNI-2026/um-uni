@@ -64,7 +64,7 @@ const DEFS = {
 };
 const defHTML = key => DEFS[key] ? `<figure class="defn"><img src="img/def-${key}.jpg" alt=""><p>${esc(DEFS[key].t)}</p></figure>` : '';
 function avancesHTML(c){
-  if(c.key==='simplificacion') return simpAvancesHTML(c);
+  if(c.key==='simplificacion') return '<div id="tupa-dash"><div class="panel"><div class="empty">Cargando dashboard…</div></div></div>';
   return `<div class="panel pres">
     <div class="vh"><h2>Avances</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
     <div class="tiles">${c.tiles.map(t=>`<div class="tile" style="--c:${c.sec.c}"><b>${esc(t.n)}</b><span>${esc(t.d)}</span></div>`).join('')}</div>
@@ -384,32 +384,66 @@ const TUPA_DATA = [
    dep:'Direcciones de Escuela Profesional de cada Facultad', dc:'Sistema: SIG-Académico UNI', btn:'Ingresar al Portal Académico'}
 ];
 
-function simpAvancesHTML(c){
-  const kpis = [
-    {n:c.tiles[0].n, lbl:c.tiles[0].d, sub:'Procedimientos del TUPA actualizados y simplificados al corte actual.',
-     ic:'<path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>', kc:'var(--red)', kbg:'#fdecee', badge:'Simplificación TUPA', bc:'sts-ok'},
-    {n:c.tiles[1].n, lbl:c.tiles[1].d, sub:'Proporción de la meta global de simplificación completada a la fecha.',
-     ic:'<path d="M18 20V10M12 20V4M6 20v-6"/>', kc:'#2563EB', kbg:'#eff6ff', badge:'Meta de Avance', bc:'sts-info'},
-    {n:c.tiles[2].n, lbl:c.tiles[2].d, sub:'Exigencias eliminadas al constatar que ya estaban disponibles en los sistemas de la UNI o en RENIEC.',
-     ic:'<path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/>', kc:'#10B981', kbg:'#ecfdf5', badge:'Requisitos Eliminados', bc:'sts-ok'}
-  ];
-  return `<div class="panel">
-    <div class="vh"><h2>Avances</h2><span class="tag">Corte: ${esc(c.info.corte)}</span></div>
-    <p class="vdesc">Indicadores de avance del programa de Simplificación Administrativa de la UNI.</p>
-    <div class="kpi-row">
-      ${kpis.map(k=>`<div class="kpi-card" style="--kc:${k.kc};--kc-bg:${k.kbg}">
-        <div class="kc-head">
-          <div class="kc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${k.ic}</svg></div>
-          <span class="sts ${k.bc}">${esc(k.badge)}</span>
-        </div>
-        <div>
-          <div class="kc-num">${esc(k.n)}</div>
-          <div class="kc-lbl">${esc(k.lbl)}</div>
-          <div class="kc-sub">${esc(k.sub)}</div>
-        </div>
-      </div>`).join('')}
+const TUPA_REFRESH_MS = 300000;
+async function loadTupa(){
+  const r = await fetch(`https://docs.google.com/spreadsheets/d/${CFG.tupaSheetId}/gviz/tq?tqx=out:csv`, {cache:'no-store'});
+  if(!r.ok) throw new Error(r.status);
+  const rows = parseCSV(await r.text()).filter(x=>x.some(v=>v.trim()!==''));
+  return rows.slice(1).filter(x=>(x[1]||'').trim()).map(x=>{
+    const raw = (x[4]||'').trim(), n = parseFloat(raw.replace('%','').replace(',','.')) || 0;
+    return {nro:(x[0]||'').trim(), tramite:x[1].trim(), area:(x[3]||'').trim() || 'Sin área', pct: raw.includes('%') || n>1 ? n : n*100, estado:(x[5]||'').trim() || 'Sin estado'};
+  });
+}
+function tupaStats(rows){
+  const n = rows.length;
+  const avg = n ? rows.reduce((s,r)=>s+r.pct,0)/n : 0;
+  const done = rows.filter(r=>r.pct>=100).length;
+  const pend = rows.filter(r=>r.pct===0).length;
+  const count = key => rows.reduce((m,r)=>(m[r[key]]=(m[r[key]]||0)+1,m),{});
+  return {n, avg, done, pend, enCurso:n-done-pend, byEstado:count('estado'), byArea:count('area')};
+}
+function tupaBars(obj, total, color){
+  return Object.entries(obj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<div class="tb-row"><span>${esc(k)}</span><div class="tb-track"><i style="width:${(v/total*100).toFixed(1)}%;background:${color}"></i></div><b>${v}</b></div>`).join('');
+}
+function tupaRows(rows){
+  return rows.map(r=>`<tr data-s="${esc((r.tramite+' '+r.area+' '+r.estado).toLowerCase())}"><td>${esc(r.nro)}</td><td>${esc(r.tramite)}</td><td>${esc(r.area)}</td><td><span class="tb-track sm"><i style="width:${r.pct.toFixed(0)}%"></i></span> ${r.pct.toFixed(0)}%</td><td>${esc(r.estado)}</td></tr>`).join('');
+}
+function tupaDashHTML(rows, stamp){
+  const s = tupaStats(rows);
+  const kpi = (v,l,c)=>`<div class="tk"><b style="color:${c}">${v}</b><span>${l}</span></div>`;
+  return `<div class="panel tdash">
+    <div class="vh"><h2>Avance de simplificación de procedimientos TUPA</h2><span class="tag">Actualizado ${stamp}</span></div>
+    <p class="vdesc">Seguimiento de los ${s.n} procedimientos del TUPA. Los datos provienen del Google Sheets y se actualizan automáticamente.</p>
+    <div class="tk-row">
+      ${kpi(s.n,'Procedimientos','#1a1f2b')}
+      ${kpi(s.avg.toFixed(1)+'%','Avance promedio','#2e8b4a')}
+      ${kpi(s.done,'Completados','#10B981')}
+      ${kpi(s.enCurso,'En curso','#F59E0B')}
+      ${kpi(s.pend,'Pendientes','#ba1a1a')}
     </div>
+    <div class="tk-track"><i style="width:${s.avg.toFixed(1)}%"></i></div>
+    <div class="tdash-cols">
+      <div><h3>Por estado</h3>${tupaBars(s.byEstado, s.n, '#2e8b4a')}</div>
+      <div><h3>Por área responsable</h3>${tupaBars(s.byArea, s.n, '#1f5fbf')}</div>
+    </div>
+    <h3>Detalle de procedimientos</h3>
+    <input class="tdash-q" type="search" placeholder="Buscar trámite, área o estado…">
+    <div class="tw"><table class="mt"><thead><tr><th>Nº</th><th>Trámite</th><th>Área responsable</th><th>Avance</th><th>Estado</th></tr></thead><tbody>${tupaRows(rows)}</tbody></table></div>
   </div>`;
+}
+async function renderTupaDashboard(el){
+  if(!el) return;
+  if(!CFG.tupaSheetId){ el.innerHTML = '<div class="panel"><div class="note">Falta el ID del Google Sheets del TUPA en config.json (tupaSheetId).</div></div>'; return; }
+  try{
+    const rows = await loadTupa();
+    const stamp = new Date().toLocaleTimeString('es-PE',{hour:'2-digit',minute:'2-digit'});
+    el.innerHTML = tupaDashHTML(rows, stamp);
+    const q = el.querySelector('.tdash-q');
+    q.addEventListener('input', ()=>{ const t = norm(q.value); el.querySelectorAll('tbody tr').forEach(tr=>{ tr.style.display = norm(tr.dataset.s).includes(t) ? '' : 'none'; }); });
+  }catch(e){
+    el.innerHTML = '<div class="panel"><div class="note">No se pudo leer el Google Sheets del TUPA. Verifica que esté compartido como «Cualquier persona con el enlace – Lector».</div></div>';
+  }
+  if(!window._tupaTimer) window._tupaTimer = setInterval(()=>{ const cur = $('#tupa-dash'); if(cur) renderTupaDashboard(cur); }, TUPA_REFRESH_MS);
 }
 
 function tupaCatalogView(el){
@@ -1008,7 +1042,7 @@ async function renderModule(key){
     const info = rinfo(res,key);
     const c = {res, key, sec, M, info, corte:info.corte, ext:k=>ext(res,k), current:null};
     c.tiles = M.tiles(c);
-    const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{ el.innerHTML=presHTML(cx); }}, {id:'avances', label:'Avances', icon:VI.steps, run:(el,cx)=>{ el.innerHTML=avancesHTML(cx); }}, ...M.views(c)];
+    const views = [{id:'presentacion', label:'Presentación', icon:VI.eye, run:(el,cx)=>{ el.innerHTML=presHTML(cx); }}, {id:'avances', label:'Avances', icon:VI.steps, run:(el,cx)=>{ el.innerHTML=avancesHTML(cx); if(cx.key==='simplificacion') renderTupaDashboard($('#tupa-dash')); }}, ...M.views(c)];
     c.go = id => {
       const v = views.find(x=>x.id===id) || views[0];
       c.current = v.id;
